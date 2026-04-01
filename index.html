@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+  <title>Jackson Limousines | The Standard of Scottsdale & Phoenix</title>
+  <meta name="description" content="Premium chauffeured transportation in Scottsdale & Phoenix. Airport, corporate, hourly, and event transportation." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void: #070605;
+      --chrome: #e5e5e5;
+      --accent: #d4af37;
+      --ease-lux: cubic-bezier(0.7, 0, 0.2, 1);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ring: rgba(255,255,255,0.9);
+      --muted: rgba(255,255,255,0.5);
+      --line: rgba(255,255,255,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      background: var(--void);
+      color: var(--chrome);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    @media (pointer: fine) { * { cursor: none !important; } }
+    h1, h2, h3, .nav-item, .display-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+    section[id] { scroll-margin-top: 86px; }
+    a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
+
+    :focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 4px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: var(--void);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #preloader .load-brand {
+      font-family: 'Syncopate', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.7em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 2rem;
+    }
+    #preloader .load-track {
+      width: 180px;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    #preloader .load-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0%;
+      background: white;
+      transition: width 0.28s ease-out;
+    }
+    #preloader .load-count {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      color: rgba(255,255,255,0.25);
+      margin-top: 1.5rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(ellipse 60% 50% at var(--mx, 50%) var(--my, 50%), rgba(30, 28, 25, 0.6) 0%, var(--void) 70%);
+      transition: background 0.5s ease-out;
+      will-change: background;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 9990;
+    }
+
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: white;
+      z-index: 9500;
+      transform-origin: left;
+    }
+
+    .custom-cursor,
+    .cursor-follower {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      will-change: transform;
+      mix-blend-mode: difference;
+    }
+    .custom-cursor {
+      width: 8px;
+      height: 8px;
+      background: white;
+      border-radius: 999px;
+    }
+    .cursor-follower {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      z-index: 9997;
+      transition: width 0.4s var(--ease-lux), height 0.4s var(--ease-lux), border-color 0.4s ease, background-color 0.4s ease, opacity 0.4s ease;
+    }
+    @media (pointer: coarse), (max-width: 768px) {
+      .custom-cursor, .cursor-follower { display: none !important; }
+    }
+
+    .glass-nav {
+      background: rgba(7, 6, 5, 0.55);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: transform 0.6s var(--ease-lux), background 0.6s ease;
+    }
+    .glass-nav.scrolled { background: rgba(7, 6, 5, 0.86); }
+    .nav-link {
+      position: relative;
+      padding-bottom: 2px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: white;
+      transition: width 0.5s var(--ease-out-expo);
+    }
+    .nav-link:hover::after,
+    .nav-link:focus-visible::after { width: 100%; }
+
+    .hamburger { width: 24px; height: 14px; position: relative; }
+    .hamburger span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: white;
+      transition: all 0.5s var(--ease-lux);
+    }
+    .hamburger span:first-child { top: 0; }
+    .hamburger span:last-child { bottom: 0; width: 60%; }
+    .hamburger.active span:first-child { top: 50%; transform: rotate(45deg); }
+    .hamburger.active span:last-child { bottom: 50%; width: 100%; transform: rotate(-45deg); }
+
+    #mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 850;
+      background: var(--void);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s var(--ease-lux);
+    }
+    #mobile-menu.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #mobile-menu .menu-link {
+      display: block;
+      font-family: 'Syncopate', sans-serif;
+      font-size: clamp(1.5rem, 6vw, 2.5rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.3);
+      padding: 0.75rem 0;
+      transform: translateY(30px);
+      opacity: 0;
+      transition: color 0.3s ease, transform 0.6s var(--ease-out-expo), opacity 0.6s ease;
+    }
+    #mobile-menu.active .menu-link {
+      transform: translateY(0);
+      opacity: 1;
+      color: white;
+    }
+    #mobile-menu.active .menu-link:nth-child(1) { transition-delay: 0.1s; }
+    #mobile-menu.active .menu-link:nth-child(2) { transition-delay: 0.2s; }
+    #mobile-menu.active .menu-link:nth-child(3) { transition-delay: 0.3s; }
+    #mobile-menu.active .menu-link:nth-child(4) { transition-delay: 0.4s; }
+
+    .hero-title {
+      font-size: clamp(2rem, 8.5vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: -0.05em;
+    }
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: clamp(1.8rem, 12vw, 3.5rem);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+      }
+    }
+    .hero-accent-line { width: 0; height: 1px; background: rgba(255,255,255,0.15); }
+    .hero-diamond { width: 6px; height: 6px; border: 1px solid rgba(255,255,255,0.2); transform: rotate(45deg) scale(0); flex-shrink: 0; }
+
+    .fleet-card {
+      position: relative;
+      height: 75vh;
+      overflow: hidden;
+    }
+    .fleet-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1) brightness(0.45);
+      transform: scale(1.05);
+      transition: filter 1.2s var(--ease-lux), transform 1.8s var(--ease-lux);
+      will-change: transform, filter;
+      background: linear-gradient(180deg, #121212, #090909);
+    }
+    .fleet-card:hover .fleet-img,
+    .fleet-card:focus-within .fleet-img,
+    .fleet-card:active .fleet-img {
+      filter: grayscale(0) brightness(0.85);
+      transform: scale(1.12);
+    }
+    .fleet-card .fleet-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 40%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+    }
+    .fleet-card .fleet-number {
+      position: absolute;
+      top: clamp(1.5rem, 4vw, 2.5rem);
+      left: clamp(1.5rem, 4vw, 2.5rem);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.3);
+      font-weight: 300;
+    }
+    .fleet-card .fleet-line {
+      width: 0;
+      height: 1px;
+      background: rgba(255,255,255,0.3);
+      margin-bottom: 1rem;
+      transition: width 0.8s var(--ease-out-expo);
+    }
+    .fleet-card:hover .fleet-line,
+    .fleet-card:focus-within .fleet-line { width: 40px; }
+    .fleet-card .fleet-title { transform: translateY(10px); transition: transform 0.8s var(--ease-out-expo); }
+    .fleet-card:hover .fleet-title,
+    .fleet-card:focus-within .fleet-title { transform: translateY(0); }
+    .fleet-card .fleet-sub {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.8s var(--ease-out-expo) 0.1s;
+    }
+    .fleet-card:hover .fleet-sub,
+    .fleet-card:focus-within .fleet-sub {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 768px) {
+      .fleet-card { height: 55vh; min-height: 350px; }
+      .fleet-card .fleet-line { width: 24px; }
+      .fleet-card .fleet-sub { opacity: 0.75; transform: translateY(0); }
+      .fleet-card .fleet-title { transform: translateY(0); }
+    }
+
+    .img-reveal-wrap { position: relative; overflow: hidden; }
+    .img-reveal-curtain {
+      position: absolute;
+      inset: 0;
+      background: var(--void);
+      z-index: 2;
+      transform-origin: right center;
+    }
+
+    #drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s var(--ease-lux);
+    }
+    #drawer-backdrop.active { opacity: 1; pointer-events: all; }
+    .booking-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 520px;
+      height: 100dvh;
+      background: #0a0908;
+      z-index: 999;
+      padding: clamp(2rem, 5vw, 3.5rem);
+      padding-top: clamp(2.5rem, 6vw, 4rem);
+      transform: translateX(105%);
+      transition: transform 0.8s var(--ease-out-expo);
+      border-left: 1px solid rgba(255,255,255,0.05);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .booking-drawer.active { transform: translateX(0); }
+
+    .form-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 0.85rem 0;
+      font-size: 0.9rem;
+      color: white;
+      outline: none;
+      transition: all 0.4s var(--ease-lux);
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+    .form-input:focus {
+      border-color: rgba(255,255,255,0.6);
+      padding-left: 0.5rem;
+    }
+    .form-input::placeholder { color: rgba(255,255,255,0.25); }
+    input[type="date"], input[type="time"] { color-scheme: dark; }
+
+    .service-btn {
+      padding: 0.7rem 1.25rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.4s var(--ease-lux);
+    }
+    .service-btn:hover,
+    .service-btn:focus-visible {
+      border-color: rgba(255,255,255,0.4);
+      color: white;
+    }
+    .service-btn.selected {
+      background: white;
+      color: black;
+      border-color: white;
+    }
+
+    .field-error,
+    .form-message {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #f5c2c7;
+      margin-top: 0.75rem;
+    }
+    .form-message.ok { color: rgba(255,255,255,0.65); }
+
+    .structural-line {
+      height: 1px;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    .magnetic-wrap { display: inline-block; position: relative; }
+    .cta-btn {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
+    .cta-btn .btn-fill {
+      position: absolute;
+      inset: 0;
+      background: white;
+      transform: translateY(102%);
+      transition: transform 0.6s var(--ease-lux);
+    }
+    .cta-btn:hover .btn-fill,
+    .cta-btn:focus-visible .btn-fill { transform: translateY(0); }
+    .cta-btn:hover .btn-text,
+    .cta-btn:focus-visible .btn-text { color: black; }
+    .btn-text { position: relative; z-index: 1; transition: color 0.5s ease; }
+
+    .reveal-up { opacity: 0; transform: translateY(50px); }
+    .quote-mark {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(4rem, 8vw, 8rem);
+      line-height: 1;
+      color: rgba(255,255,255,0.06);
+      position: absolute;
+      top: -0.2em;
+      left: -0.05em;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .text-balance { text-wrap: balance; }
+    .hidden-when-active[aria-hidden="true"] { visibility: hidden; }
+
+    @media (max-width: 768px) { .hide-mobile { display: none !important; } }
+    @media (min-width: 769px) { .hide-desktop { display: none !important; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal-up { opacity: 1; transform: none; }
+      .structural-line { transform: scaleX(1); }
+      .hero-accent-line { width: 60px; }
+      .hero-diamond { transform: rotate(45deg) scale(1); }
+      #preloader { display: none !important; }
+      body.preload-locked { overflow: auto !important; }
+    }
+  </style>
+</head>
+<body class="preload-locked">
+  <div id="preloader" aria-hidden="true">
+    <div class="load-brand">Jackson</div>
+    <div class="load-track"><div class="load-fill" id="load-fill"></div></div>
+    <div class="load-count" id="load-count">0</div>
+  </div>
+
+  <div id="bg-canvas"></div>
+  <div class="noise"></div>
+  <div class="custom-cursor" id="cursor"></div>
+  <div class="cursor-follower" id="follower"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <nav id="main-nav" class="glass-nav fixed w-full z-[900] px-5 md:px-10 lg:px-14 py-4 md:py-5 flex justify-between items-center">
+    <a href="#hero" class="text-lg md:text-xl font-bold tracking-tighter nav-item flex items-center gap-1.5 text-white no-underline">
+      Jackson<span class="text-[8px] opacity-30 mt-0.5 tracking-normal">™</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-10 lg:gap-14">
+      <a href="#fleet" class="nav-link text-[10px] font-semibold tracking-[0.25em] nav-item text-gray-400 hover:text-white no-underline">Fleet</a>
+      <a href="#experience" class="nav-link text-[10px] font-semibold tracking-[0.25em] nav-item text-gray-400 hover:text-white no-underline">Experience</a>
+      <a href="#contact" class="nav-link text-[10px] font-semibold tracking-[0.25em] nav-item text-gray-400 hover:text-white no-underline">Contact</a>
+    </div>
+
+    <div class="flex items-center gap-5">
+      <a href="tel:+18885551234" class="hidden lg:flex items-center gap-2 text-[10px] tracking-[0.15em] text-gray-500 hover:text-white no-underline transition-colors">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (888) 555-1234
+      </a>
+
+      <div class="magnetic-wrap hide-mobile">
+        <button type="button" class="cta-btn text-[10px] px-7 py-3 border border-white/15 uppercase tracking-[0.2em] font-medium js-open-booking" aria-haspopup="dialog">
+          <span class="btn-fill"></span>
+          <span class="btn-text">Reserve</span>
+        </button>
+      </div>
+
+      <button id="menu-toggle" class="hamburger hide-desktop" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" aria-hidden="true">
+    <nav class="text-center space-y-2 mb-16">
+      <a href="#fleet" class="menu-link">Fleet</a>
+      <a href="#experience" class="menu-link">Experience</a>
+      <a href="#contact" class="menu-link">Contact</a>
+      <button type="button" class="menu-link js-open-booking" style="background:none;border:none;">Reserve</button>
+    </nav>
+    <div class="absolute bottom-10 left-0 right-0 text-center space-y-3">
+      <a href="tel:+18885551234" class="block text-sm text-gray-400 tracking-widest">+1 (888) 555-1234</a>
+      <div class="text-[9px] tracking-[0.4em] text-gray-600 uppercase">Scottsdale & Phoenix, AZ</div>
+    </div>
+  </div>
+
+  <div id="drawer-backdrop"></div>
+  <aside id="drawer" class="booking-drawer" role="dialog" aria-modal="true" aria-labelledby="reservation-heading" aria-hidden="true">
+    <div class="flex justify-between items-start mb-12 md:mb-16">
+      <div>
+        <h2 id="reservation-heading" class="text-2xl md:text-3xl font-bold mb-2 display-font tracking-tight">Reservation</h2>
+        <p class="text-[9px] text-gray-500 tracking-[0.2em] uppercase">Private Chauffeur Services</p>
+      </div>
+      <button id="close-drawer" type="button" class="text-[9px] text-gray-500 hover:text-white transition-colors tracking-[0.15em] uppercase border border-white/10 px-3 py-2 hover:border-white/30 font-medium" aria-label="Close reservation drawer">
+        Close<span class="hide-mobile"> [esc]</span>
+      </button>
+    </div>
+
+    <form id="booking-form" class="space-y-8" novalidate>
+      <input type="hidden" id="service-input" name="service" />
+
+      <div>
+        <label class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-3">Service</label>
+        <div class="flex flex-wrap gap-2" role="radiogroup" aria-label="Service category">
+          <button type="button" class="service-btn" data-service="Airport Transfer">Airport</button>
+          <button type="button" class="service-btn" data-service="Corporate Travel">Corporate</button>
+          <button type="button" class="service-btn" data-service="Events Transportation">Events</button>
+          <button type="button" class="service-btn" data-service="Hourly Charter">Hourly</button>
+        </div>
+        <p id="service-error" class="field-error hidden" aria-live="polite">Select a service category.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label for="full-name" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Full Name</label>
+          <input id="full-name" name="fullName" type="text" class="form-input" placeholder="Your name" autocomplete="name" required />
+        </div>
+        <div>
+          <label for="phone" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Phone</label>
+          <input id="phone" name="phone" type="tel" class="form-input" placeholder="(000) 000-0000" autocomplete="tel" inputmode="tel" required />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label for="date" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Date</label>
+          <input id="date" name="date" type="date" class="form-input" required />
+        </div>
+        <div>
+          <label for="time" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Time</label>
+          <input id="time" name="time" type="time" class="form-input" required />
+        </div>
+      </div>
+
+      <div>
+        <label for="pickup" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Pickup Location</label>
+        <input id="pickup" name="pickup" type="text" class="form-input" placeholder="Resort, Sky Harbor Terminal, or address" required />
+      </div>
+
+      <div>
+        <label for="email" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Email</label>
+        <input id="email" name="email" type="email" class="form-input" placeholder="your@email.com" autocomplete="email" required />
+      </div>
+
+      <div>
+        <label for="requests" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Special Requests <span class="text-gray-700">(optional)</span></label>
+        <textarea id="requests" name="requests" class="form-input" rows="2" placeholder="Car seat, specific vehicle, accessibility needs, etc." style="resize:none;"></textarea>
+      </div>
+
+      <p id="form-message" class="form-message hidden" aria-live="polite"></p>
+
+      <button type="submit" id="submit-btn" class="w-full py-5 bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-100 transition-all duration-500 mt-2 active:scale-[0.98]">
+        Confirm Request
+      </button>
+    </form>
+
+    <div id="success-state" class="hidden flex-col items-center justify-center text-center" style="min-height:60vh;">
+      <div class="w-14 h-14 border border-white/15 rounded-full flex items-center justify-center mb-8">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3 class="text-lg font-bold mb-3 display-font tracking-[0.1em]">Request Prepared</h3>
+      <p class="text-sm text-gray-400 leading-relaxed max-w-xs">Your reservation details were prepared for dispatch. If your mail app did not open, the request text was copied so you can paste it into an email.</p>
+      <button id="new-request" type="button" class="mt-10 text-[9px] tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors border-b border-white/10 pb-1">New Request</button>
+    </div>
+  </aside>
+
+  <main id="site-content">
+    <section id="hero" class="relative h-screen h-[100dvh] flex items-center justify-center overflow-hidden">
+      <div class="container mx-auto px-6 text-center z-10 relative">
+        <div class="overflow-hidden mb-6 md:mb-8">
+          <span id="hero-meta" class="inline-block text-[8px] md:text-[9px] tracking-[0.5em] md:tracking-[0.7em] text-gray-500 uppercase font-medium opacity-0 translate-y-4">Premium Chauffeured Service · Phoenix & Scottsdale</span>
+        </div>
+
+        <div class="flex items-center justify-center gap-3 md:gap-5 mb-6 md:mb-10" id="hero-accent-top">
+          <div class="hero-accent-line" style="max-width:60px"></div>
+          <div class="hero-diamond"></div>
+          <div class="hero-accent-line" style="max-width:60px"></div>
+        </div>
+
+        <h1 class="hero-title select-none">
+          <div class="overflow-hidden"><span class="h-line block">Beyond</span></div>
+          <div class="overflow-hidden"><span class="h-line block text-[#4a4a4a]">Ordinary</span></div>
+          <div class="overflow-hidden"><span class="h-line block">Transit</span></div>
+        </h1>
+
+        <div class="flex items-center justify-center gap-3 md:gap-5 mt-6 md:mt-10" id="hero-accent-bottom">
+          <div class="hero-accent-line" style="max-width:60px"></div>
+          <div class="hero-diamond"></div>
+          <div class="hero-accent-line" style="max-width:60px"></div>
+        </div>
+
+        <div class="mt-12 md:mt-16 opacity-0" id="hero-cta">
+          <a href="#fleet" class="text-[9px] tracking-[0.35em] uppercase text-gray-500 hover:text-white transition-colors duration-500 flex flex-col items-center gap-4 no-underline">
+            <span>Explore the Fleet</span>
+            <svg class="animate-bounce" width="12" height="24" viewBox="0 0 12 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" aria-hidden="true">
+              <line x1="6" y1="0" x2="6" y2="22" />
+              <polyline points="2,18 6,22 10,18" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-24 border-y border-white/[0.04]">
+      <div class="container mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          <div class="text-center reveal-up">
+            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="40">0</span><span class="text-gray-600">+</span></div>
+            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Years in Service</div>
+          </div>
+          <div class="text-center reveal-up">
+            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="24">0</span><span class="text-gray-600">/7</span></div>
+            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Dispatch Coverage</div>
+          </div>
+          <div class="text-center reveal-up">
+            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="3">0</span><span class="text-gray-600">+</span></div>
+            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Service Categories</div>
+          </div>
+          <div class="text-center reveal-up">
+            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="365">0</span></div>
+            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Days Available</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="py-24 md:py-40 px-6">
+      <div class="structural-line mb-16 md:mb-28" id="line-exp"></div>
+      <div class="container mx-auto grid lg:grid-cols-12 gap-12 md:gap-20 items-center">
+        <div class="lg:col-span-7 reveal-up">
+          <div class="img-reveal-wrap aspect-[16/10] border border-white/[0.04]">
+            <div class="img-reveal-curtain" id="img-curtain"></div>
+            <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1600" alt="Luxury limousine interior with leather seating" class="w-full h-full object-cover grayscale opacity-70" id="parallax-img" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+          </div>
+        </div>
+        <div class="lg:col-span-5 space-y-8 md:space-y-10">
+          <div class="reveal-up">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">Precision<br /><span class="text-gray-500">In Motion.</span></h2>
+          </div>
+          <div class="reveal-up">
+            <p class="text-gray-400 text-sm md:text-[15px] leading-[1.9] max-w-md font-light text-balance">Serving the Valley since 1985 means every pickup, route, and handoff is built around consistency. Clean arrival windows, polished vehicles, discreet drivers, and no wasted motion.</p>
+          </div>
+          <div class="reveal-up pt-6 border-t border-white/[0.06]">
+            <div class="text-[8px] tracking-[0.3em] text-gray-600 uppercase mb-4">Built For</div>
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">AIRPORT</span>
+              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">CORPORATE</span>
+              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">EVENTS</span>
+              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">HOURLY</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fleet" class="pt-12 md:pt-20">
+      <div class="container mx-auto px-6 mb-10 md:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <div class="reveal-up"><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">The Fleet.</h2></div>
+        <div class="reveal-up text-[9px] text-gray-500 tracking-[0.3em] uppercase mb-1 flex items-center gap-3"><div class="w-6 h-px bg-white/15"></div>Curated Assets</div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 border-t border-white/[0.06]" id="fleet-grid">
+        <article class="fleet-card group border-b md:border-b-0 md:border-r border-white/[0.04]" tabindex="0">
+          <div class="fleet-number">01</div>
+          <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Mercedes S-Class luxury sedan" loading="lazy" />
+          <div class="fleet-overlay">
+            <div class="fleet-line"></div>
+            <h3 class="fleet-title text-xl md:text-2xl font-bold display-font mb-1">S-Class</h3>
+            <p class="fleet-sub text-[9px] tracking-[0.25em] text-gray-300 uppercase">Executive Sedan · 3 Guests</p>
+          </div>
+        </article>
+        <article class="fleet-card group border-b md:border-b-0 md:border-r border-white/[0.04]" tabindex="0">
+          <div class="fleet-number">02</div>
+          <img src="https://images.unsplash.com/photo-1619330642960-9ba17d8f4354?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Cadillac Escalade ESV" loading="lazy" />
+          <div class="fleet-overlay">
+            <div class="fleet-line"></div>
+            <h3 class="fleet-title text-xl md:text-2xl font-bold display-font mb-1">Escalade ESV</h3>
+            <p class="fleet-sub text-[9px] tracking-[0.25em] text-gray-300 uppercase">Command Utility · 6 Guests</p>
+          </div>
+        </article>
+        <article class="fleet-card group" tabindex="0">
+          <div class="fleet-number">03</div>
+          <img src="https://images.unsplash.com/photo-1620050860533-319a27814b7e?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Mercedes Sprinter luxury van" loading="lazy" />
+          <div class="fleet-overlay">
+            <div class="fleet-line"></div>
+            <h3 class="fleet-title text-xl md:text-2xl font-bold display-font mb-1">Jet Sprinter</h3>
+            <p class="fleet-sub text-[9px] tracking-[0.25em] text-gray-300 uppercase">Mobile Boardroom · 12 Guests</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="py-28 md:py-40 px-6">
+      <div class="container mx-auto max-w-4xl">
+        <div class="text-center reveal-up">
+          <div class="text-[8px] tracking-[0.5em] text-gray-600 uppercase mb-10 md:mb-14 flex items-center justify-center gap-3">
+            <div class="w-5 h-px bg-white/10"></div>
+            Service Standard
+            <div class="w-5 h-px bg-white/10"></div>
+          </div>
+        </div>
+        <div class="relative reveal-up">
+          <div class="quote-mark">"</div>
+          <blockquote class="text-xl md:text-3xl lg:text-[2.2rem] font-light leading-[1.6] md:leading-[1.55] text-gray-300 text-balance pl-2 md:pl-0">Built for clients who care about timing, discretion, and a clean handoff from pickup to arrival.</blockquote>
+        </div>
+        <div class="mt-10 md:mt-14 reveal-up flex items-center gap-4">
+          <div class="w-8 h-px bg-white/10"></div>
+          <div>
+            <div class="text-[10px] tracking-[0.2em] text-gray-400 uppercase font-medium">Scottsdale & Phoenix</div>
+            <div class="text-[9px] tracking-[0.15em] text-gray-600 uppercase mt-0.5">Airport · Corporate · Events · Hourly</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="py-28 md:py-40 px-6 border-t border-white/[0.04]">
+      <div class="container mx-auto text-center">
+        <div class="reveal-up"><h2 class="text-[8px] md:text-[9px] tracking-[0.5em] text-gray-600 mb-8 md:mb-12 uppercase">Secure Your Asset</h2></div>
+        <div class="reveal-up">
+          <div class="magnetic-wrap inline-block">
+            <button type="button" class="text-4xl md:text-6xl lg:text-8xl font-bold text-white/90 hover:text-white transition-all duration-700 display-font tracking-tighter relative group bg-transparent border-none outline-none js-open-booking" aria-label="Open booking form">
+              Book Now.
+              <div class="absolute -bottom-3 md:-bottom-4 left-0 w-full h-px bg-white/25 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" style="transition-timing-function:var(--ease-out-expo)"></div>
+            </button>
+          </div>
+        </div>
+        <div class="mt-16 md:mt-20 flex flex-col md:flex-row justify-center gap-6 md:gap-16 lg:gap-24 reveal-up">
+          <a href="mailto:concierge@jacksonlimo.com" class="text-[10px] tracking-[0.15em] text-gray-400 uppercase hover:text-white transition-colors no-underline">concierge@jacksonlimo.com</a>
+          <a href="tel:+18885551234" class="text-[10px] tracking-[0.15em] text-gray-400 uppercase hover:text-white transition-colors no-underline">+1 (888) 555-1234</a>
+          <span class="text-[10px] tracking-[0.15em] text-gray-600 uppercase">HQ: Scottsdale, AZ</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/[0.04] bg-[#050404]">
+    <div class="container mx-auto px-6">
+      <div class="py-16 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
+        <div class="md:col-span-5 lg:col-span-6">
+          <div class="text-lg font-bold tracking-tighter display-font mb-3">Jackson</div>
+          <p class="text-[13px] text-gray-500 max-w-sm leading-relaxed font-light">Premium chauffeured transportation for airport, executive, and event travel across Scottsdale and Phoenix.</p>
+        </div>
+        <div class="md:col-span-3">
+          <div class="text-[8px] tracking-[0.25em] text-gray-600 uppercase mb-5 font-medium">Navigate</div>
+          <div class="space-y-2.5">
+            <a href="#fleet" class="block text-[13px] text-gray-500 hover:text-white no-underline">Fleet</a>
+            <a href="#experience" class="block text-[13px] text-gray-500 hover:text-white no-underline">Experience</a>
+            <a href="#contact" class="block text-[13px] text-gray-500 hover:text-white no-underline">Contact</a>
+            <button type="button" class="block text-[13px] text-gray-500 hover:text-white no-underline bg-transparent border-none js-open-booking">Reserve</button>
+          </div>
+        </div>
+        <div class="md:col-span-4 lg:col-span-3">
+          <div class="text-[8px] tracking-[0.25em] text-gray-600 uppercase mb-5 font-medium">Connect</div>
+          <div class="space-y-2.5">
+            <a href="tel:+18885551234" class="block text-[13px] text-gray-500 hover:text-white no-underline">+1 (888) 555-1234</a>
+            <a href="mailto:concierge@jacksonlimo.com" class="block text-[13px] text-gray-500 hover:text-white no-underline">concierge@jacksonlimo.com</a>
+            <div class="text-[13px] text-gray-600">Scottsdale, AZ</div>
+          </div>
+        </div>
+      </div>
+      <div class="py-7 border-t border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-3 text-[8px] tracking-[0.2em] text-gray-600 uppercase">
+        <div>© 2026 Jackson Limousine Service. All rights reserved.</div>
+        <div class="flex gap-6 items-center">
+          <span>Private Requests</span>
+          <span>Direct Dispatch</span>
+          <span>Scottsdale, Arizona</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const hasGSAP = typeof window.gsap !== 'undefined';
+      if (hasGSAP && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const body = document.body;
+      const preloader = document.getElementById('preloader');
+      const loadFill = document.getElementById('load-fill');
+      const loadCount = document.getElementById('load-count');
+      const bgCanvas = document.getElementById('bg-canvas');
+      const cursor = document.getElementById('cursor');
+      const follower = document.getElementById('follower');
+      const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+      const nav = document.getElementById('main-nav');
+      const progressBar = document.getElementById('scroll-progress');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      const drawer = document.getElementById('drawer');
+      const backdrop = document.getElementById('drawer-backdrop');
+      const bookingForm = document.getElementById('booking-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const successState = document.getElementById('success-state');
+      const serviceInput = document.getElementById('service-input');
+      const serviceError = document.getElementById('service-error');
+      const formMessage = document.getElementById('form-message');
+      const closeDrawerBtn = document.getElementById('close-drawer');
+      const newRequestBtn = document.getElementById('new-request');
+      const fullNameInput = document.getElementById('full-name');
+      const dateInput = document.getElementById('date');
+      const siteContent = document.getElementById('site-content');
+      const drawerFocusableSelector = 'button, [href], input, textarea, select';
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let lastScroll = 0;
+      let ticking = false;
+      let menuOpen = false;
+      let drawerOpen = false;
+      let lastFocused = null;
+
+      const imageSources = [
+        'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1600',
+        'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000',
+        'https://images.unsplash.com/photo-1619330642960-9ba17d8f4354?auto=format&fit=crop&q=80&w=1000',
+        'https://images.unsplash.com/photo-1620050860533-319a27814b7e?auto=format&fit=crop&q=80&w=1000'
+      ];
+
+      function setMinDate() {
+        const now = new Date();
+        const offset = now.getTimezoneOffset();
+        const local = new Date(now.getTime() - offset * 60000).toISOString().split('T')[0];
+        dateInput.min = local;
+      }
+
+      function revealSite() {
+        body.classList.remove('preload-locked');
+        if (!prefersReducedMotion && hasGSAP) {
+          gsap.to(preloader, {
+            opacity: 0,
+            duration: 0.7,
+            ease: 'power2.inOut',
+            onComplete: () => {
+              preloader.style.display = 'none';
+              startAnimations();
+            }
+          });
+        } else {
+          preloader.style.display = 'none';
+          startAnimations();
+        }
+      }
+
+      function runPreloader() {
+        if (prefersReducedMotion) {
+          preloader.style.display = 'none';
+          body.classList.remove('preload-locked');
+          startAnimations();
+          return;
+        }
+
+        let loaded = 0;
+        const total = imageSources.length;
+        const finish = () => {
+          loaded += 1;
+          const pct = Math.round((loaded / total) * 100);
+          loadFill.style.width = pct + '%';
+          loadCount.textContent = String(pct);
+          if (loaded >= total) {
+            setTimeout(revealSite, 160);
+          }
+        };
+
+        imageSources.forEach((src) => {
+          const img = new Image();
+          img.onload = finish;
+          img.onerror = finish;
+          img.src = src;
+        });
+
+        setTimeout(() => {
+          if (loaded < total) {
+            loadFill.style.width = '100%';
+            loadCount.textContent = '100';
+            revealSite();
+          }
+        }, 3200);
+      }
+
+      function animateHero() {
+        if (!hasGSAP || prefersReducedMotion) {
+          document.querySelectorAll('.reveal-up').forEach((el) => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+          });
+          document.getElementById('hero-meta').style.opacity = '1';
+          document.getElementById('hero-meta').style.transform = 'none';
+          document.getElementById('hero-cta').style.opacity = '1';
+          return;
+        }
+
+        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+        tl.to('#hero-meta', { opacity: 1, y: 0, duration: 1, delay: 0.1 })
+          .to('.hero-accent-line', { width: 60, duration: 1.2, ease: 'power3.inOut' }, '-=0.6')
+          .to('.hero-diamond', { scale: 1, duration: 0.8, ease: 'back.out(2)' }, '-=0.8')
+          .from('.h-line', { y: '120%', skewY: 4, opacity: 0, stagger: 0.12, duration: 1.4 }, '-=1.0')
+          .to('#hero-cta', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.6');
+
+        document.querySelectorAll('.h-line').forEach((line, i) => {
+          const speeds = [-120, -80, -50];
+          gsap.to(line, {
+            scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.8 },
+            y: speeds[i] || -60,
+            opacity: 0,
+            ease: 'none'
+          });
+        });
+
+        gsap.to(['#hero-accent-top', '#hero-accent-bottom', '#hero-meta', '#hero-cta'], {
+          scrollTrigger: { trigger: '#hero', start: 'top top', end: '60% top', scrub: 0.5 },
+          opacity: 0,
+          ease: 'none'
+        });
+      }
+
+      function initScrollAnimations() {
+        if (!hasGSAP || prefersReducedMotion) return;
+
+        gsap.utils.toArray('.reveal-up').forEach((el) => {
+          gsap.to(el, {
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out'
+          });
+        });
+
+        gsap.utils.toArray('.structural-line').forEach((line) => {
+          gsap.to(line, {
+            scrollTrigger: { trigger: line, start: 'top 85%' },
+            scaleX: 1,
+            duration: 1.6,
+            ease: 'power3.inOut'
+          });
+        });
+
+        const curtain = document.getElementById('img-curtain');
+        if (curtain) {
+          gsap.to(curtain, {
+            scrollTrigger: { trigger: curtain, start: 'top 75%' },
+            scaleX: 0,
+            transformOrigin: 'right center',
+            duration: 1.4,
+            ease: 'power4.inOut'
+          });
+        }
+
+        gsap.to('#parallax-img', {
+          scrollTrigger: { trigger: '#experience', start: 'top bottom', end: 'bottom top', scrub: 1.2 },
+          y: -60,
+          ease: 'none'
+        });
+
+        document.querySelectorAll('.counter').forEach((el) => {
+          const target = parseInt(el.dataset.target, 10);
+          ScrollTrigger.create({
+            trigger: el,
+            start: 'top 88%',
+            once: true,
+            onEnter: () => {
+              const obj = { val: 0 };
+              gsap.to(obj, {
+                val: target,
+                duration: 2.2,
+                ease: 'power2.out',
+                onUpdate: () => { el.textContent = Math.round(obj.val); }
+              });
+            }
+          });
+        });
+
+        gsap.from('.fleet-card', {
+          scrollTrigger: { trigger: '#fleet-grid', start: 'top 80%' },
+          y: 60,
+          opacity: 0,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: 'power3.out'
+        });
+      }
+
+      function startAnimations() {
+        animateHero();
+        initScrollAnimations();
+        if (isFinePointer && hasGSAP) {
+          gsap.to([cursor, follower], { opacity: 1, duration: 0.5, delay: 0.2 });
+        }
+      }
+
+      function updateProgress() {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = scrollHeight > 0 ? (window.pageYOffset / scrollHeight) * 100 : 0;
+        progressBar.style.width = scrolled + '%';
+      }
+
+      function trapFocus(container, event) {
+        const focusable = [...container.querySelectorAll(drawerFocusableSelector)].filter((el) => !el.disabled && el.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+
+      function setPageLocked(locked) {
+        body.style.overflow = locked ? 'hidden' : '';
+      }
+
+      function openMenu() {
+        if (drawerOpen) return;
+        lastFocused = document.activeElement;
+        menuOpen = true;
+        mobileMenu.classList.add('active');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        menuToggle.classList.add('active');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuToggle.setAttribute('aria-label', 'Close menu');
+        setPageLocked(true);
+        const firstLink = mobileMenu.querySelector('.menu-link');
+        if (firstLink) firstLink.focus();
+      }
+
+      function closeMenu(restoreFocus = true) {
+        menuOpen = false;
+        mobileMenu.classList.remove('active');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+        if (!drawerOpen) setPageLocked(false);
+        if (restoreFocus && lastFocused) lastFocused.focus();
+      }
+
+      function toggleMenu() {
+        if (menuOpen) closeMenu(false);
+        else openMenu();
+      }
+
+      function openDrawer() {
+        if (menuOpen) closeMenu(false);
+        lastFocused = document.activeElement;
+        drawerOpen = true;
+        drawer.classList.add('active');
+        drawer.setAttribute('aria-hidden', 'false');
+        backdrop.classList.add('active');
+        setPageLocked(true);
+        nav.style.transform = 'translateY(0)';
+        setTimeout(() => fullNameInput.focus(), 100);
+      }
+
+      function closeDrawer(restoreFocus = true) {
+        drawerOpen = false;
+        drawer.classList.remove('active');
+        drawer.setAttribute('aria-hidden', 'true');
+        backdrop.classList.remove('active');
+        if (!menuOpen) setPageLocked(false);
+        if (restoreFocus && lastFocused) lastFocused.focus();
+      }
+
+      function sanitize(value) {
+        return String(value || '').replace(/\s+/g, ' ').trim();
+      }
+
+      function formatReservationBody(data) {
+        return [
+          'Reservation Request',
+          '',
+          'Service: ' + data.service,
+          'Name: ' + data.fullName,
+          'Phone: ' + data.phone,
+          'Email: ' + data.email,
+          'Date: ' + data.date,
+          'Time: ' + data.time,
+          'Pickup: ' + data.pickup,
+          'Special Requests: ' + (data.requests || 'None')
+        ].join('\n');
+      }
+
+      async function copyText(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          return true;
+        }
+        const temp = document.createElement('textarea');
+        temp.value = text;
+        temp.setAttribute('readonly', '');
+        temp.style.position = 'absolute';
+        temp.style.left = '-9999px';
+        document.body.appendChild(temp);
+        temp.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(temp);
+        return ok;
+      }
+
+      function showSuccess(messageClass = 'ok') {
+        bookingForm.style.display = 'none';
+        successState.classList.remove('hidden');
+        successState.classList.add('flex');
+        formMessage.classList.add('hidden');
+        if (messageClass === 'ok' && hasGSAP && !prefersReducedMotion) {
+          gsap.from(successState.children, {
+            y: 20,
+            opacity: 0,
+            stagger: 0.08,
+            duration: 0.5,
+            ease: 'power2.out'
+          });
+        }
+      }
+
+      function showFormMessage(message, type = 'error') {
+        formMessage.textContent = message;
+        formMessage.classList.remove('hidden', 'ok');
+        if (type === 'ok') formMessage.classList.add('ok');
+      }
+
+      function validateService() {
+        const valid = Boolean(serviceInput.value);
+        serviceError.classList.toggle('hidden', valid);
+        return valid;
+      }
+
+      async function handleSubmit(event) {
+        event.preventDefault();
+        formMessage.classList.add('hidden');
+
+        const serviceValid = validateService();
+        if (!serviceValid) {
+          serviceError.focus?.();
+        }
+
+        if (!bookingForm.reportValidity() || !serviceValid) {
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = '0.65';
+        submitBtn.textContent = 'Preparing Request...';
+
+        const data = {
+          service: sanitize(serviceInput.value),
+          fullName: sanitize(document.getElementById('full-name').value),
+          phone: sanitize(document.getElementById('phone').value),
+          email: sanitize(document.getElementById('email').value),
+          date: sanitize(document.getElementById('date').value),
+          time: sanitize(document.getElementById('time').value),
+          pickup: sanitize(document.getElementById('pickup').value),
+          requests: sanitize(document.getElementById('requests').value)
+        };
+
+        const subject = encodeURIComponent('Jackson reservation request — ' + data.fullName + ' — ' + data.date);
+        const bodyText = formatReservationBody(data);
+        const body = encodeURIComponent(bodyText);
+        const mailto = 'mailto:concierge@jacksonlimo.com?subject=' + subject + '&body=' + body;
+
+        try {
+          await copyText(bodyText);
+        } catch (_) {}
+
+        window.location.href = mailto;
+        showSuccess('ok');
+      }
+
+      function resetBooking() {
+        successState.classList.add('hidden');
+        successState.classList.remove('flex');
+        bookingForm.style.display = '';
+        bookingForm.reset();
+        serviceInput.value = '';
+        document.querySelectorAll('.service-btn').forEach((btn) => btn.classList.remove('selected'));
+        serviceError.classList.add('hidden');
+        formMessage.classList.add('hidden');
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '';
+        submitBtn.textContent = 'Confirm Request';
+        fullNameInput.focus();
+      }
+
+      function wireCursor() {
+        if (!isFinePointer || !hasGSAP || prefersReducedMotion) return;
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+          const mx = (mouseX / window.innerWidth) * 100;
+          const my = (mouseY / window.innerHeight) * 100;
+          bgCanvas.style.setProperty('--mx', mx + '%');
+          bgCanvas.style.setProperty('--my', my + '%');
+          gsap.to(cursor, { x: mouseX - 4, y: mouseY - 4, duration: 0.08, ease: 'power2.out' });
+          gsap.to(follower, { x: mouseX - 22, y: mouseY - 22, duration: 0.45, ease: 'power3.out' });
+        });
+
+        document.querySelectorAll('button, a, input, textarea, select, [tabindex="0"]').forEach((el) => {
+          el.addEventListener('mouseenter', () => {
+            gsap.to(follower, {
+              width: 60,
+              height: 60,
+              borderColor: 'rgba(255,255,255,0.7)',
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              x: mouseX - 30,
+              y: mouseY - 30,
+              duration: 0.35,
+              ease: 'power2.out'
+            });
+          });
+          el.addEventListener('mouseleave', () => {
+            gsap.to(follower, {
+              width: 44,
+              height: 44,
+              borderColor: 'rgba(255,255,255,0.12)',
+              backgroundColor: 'transparent',
+              x: mouseX - 22,
+              y: mouseY - 22,
+              duration: 0.35,
+              ease: 'power2.out'
+            });
+          });
+        });
+      }
+
+      function wireMagnetic() {
+        if (!isFinePointer || !hasGSAP || prefersReducedMotion) return;
+        document.querySelectorAll('.magnetic-wrap').forEach((wrap) => {
+          const child = wrap.children[0];
+          wrap.addEventListener('mousemove', (e) => {
+            const rect = wrap.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(child, { x: x * 0.25, y: y * 0.25, duration: 0.4, ease: 'power2.out' });
+          });
+          wrap.addEventListener('mouseleave', () => {
+            gsap.to(child, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+          });
+        });
+      }
+
+      function wireNav() {
+        window.addEventListener('scroll', () => {
+          updateProgress();
+          if (!ticking) {
+            requestAnimationFrame(() => {
+              const currentScroll = window.pageYOffset;
+              if (!menuOpen && !drawerOpen) {
+                if (currentScroll > lastScroll && currentScroll > 120) nav.style.transform = 'translateY(-101%)';
+                else nav.style.transform = 'translateY(0)';
+              }
+              if (currentScroll > 50) nav.classList.add('scrolled');
+              else nav.classList.remove('scrolled');
+              lastScroll = currentScroll;
+              ticking = false;
+            });
+            ticking = true;
+          }
+        }, { passive: true });
+      }
+
+      function wireSmoothScroll() {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener('click', (event) => {
+            const href = anchor.getAttribute('href');
+            const target = document.querySelector(href);
+            if (!target) return;
+            event.preventDefault();
+            if (menuOpen) closeMenu(false);
+            const navHeight = nav.offsetHeight;
+            const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+          });
+        });
+      }
+
+      function wireMenuAndDrawer() {
+        menuToggle.addEventListener('click', toggleMenu);
+        document.querySelectorAll('.js-open-booking').forEach((btn) => {
+          btn.addEventListener('click', openDrawer);
+        });
+        closeDrawerBtn.addEventListener('click', () => closeDrawer());
+        backdrop.addEventListener('click', () => closeDrawer());
+        newRequestBtn.addEventListener('click', resetBooking);
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') {
+            if (drawerOpen) closeDrawer();
+            else if (menuOpen) closeMenu();
+          }
+          if (event.key === 'Tab') {
+            if (drawerOpen) trapFocus(drawer, event);
+            else if (menuOpen) trapFocus(mobileMenu, event);
+          }
+        });
+      }
+
+      function wireForm() {
+        bookingForm.addEventListener('submit', handleSubmit);
+        document.querySelectorAll('.service-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('.service-btn').forEach((b) => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            serviceInput.value = btn.dataset.service;
+            validateService();
+          });
+        });
+      }
+
+      function wireImageFallbacks() {
+        document.querySelectorAll('img').forEach((img) => {
+          img.addEventListener('error', () => {
+            img.style.opacity = '0';
+            img.parentElement?.classList.add('bg-[#0d0d0d]');
+          });
+        });
+      }
+
+      setMinDate();
+      updateProgress();
+      wireCursor();
+      wireMagnetic();
+      wireNav();
+      wireSmoothScroll();
+      wireMenuAndDrawer();
+      wireForm();
+      wireImageFallbacks();
+      runPreloader();
+    })();
+  </script>
+</body>
+</html>
