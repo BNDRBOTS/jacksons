@@ -1,30 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
   <title>Jackson Limousines | The Standard of Scottsdale & Phoenix</title>
   <meta name="description" content="Premium chauffeured transportation in Scottsdale & Phoenix. Airport, corporate, hourly, and event transportation." />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="canonical" href="https://www.jacksonlimo.com/" />
+  
+  <!-- Semantic App-Shell Security: LocalBusiness JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Jackson Limousine Service",
+    "image": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000",
+    "description": "Premium chauffeured transportation for airport, executive, and event travel across Scottsdale and Phoenix.",
+    "telephone": "+1-888-555-1234",
+    "email": "concierge@jacksonlimo.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Scottsdale",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    },
+    "areaServed": ["Scottsdale, AZ", "Phoenix, AZ"],
+    "priceRange": "$$$"
+  }
+  </script>
+
+  <!-- Core Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  
+  <!-- Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Structural Architecture & Deep-Void Token Matrix -->
   <style>
     :root {
-      --void: #070605;
-      --chrome: #e5e5e5;
-      --accent: #d4af37;
+      /* CORRECTED OKLCH MATRIX: 
+        L=2% is true deep obsidian. L=14.5% was the matte mud. 
+      */
+      --void: oklch(2% 0.005 60); /* Warm deep obsidian */
+      --chrome: oklch(98% 0 0);
+      --accent: oklch(75% 0.02 60); /* Raw Titanium / Warm Silver - No Neon, No Gold */
+      --white: oklch(100% 0 0);
+      --black: oklch(0% 0 0);
+
+      /* Motion Contract */
       --ease-lux: cubic-bezier(0.7, 0, 0.2, 1);
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-      --ring: rgba(255,255,255,0.9);
-      --muted: rgba(255,255,255,0.5);
-      --line: rgba(255,255,255,0.08);
+
+      /* High-Gloss Transparency Engine */
+      --ring: color-mix(in oklch, var(--white) 90%, transparent);
+      --muted: color-mix(in oklch, var(--white) 50%, transparent);
+      --line: color-mix(in oklch, var(--white) 12%, transparent);
+      --nav-glass: color-mix(in oklch, var(--void) 35%, transparent);
+      --nav-glass-scrolled: color-mix(in oklch, var(--void) 75%, transparent);
+      --drawer-glass: color-mix(in oklch, var(--black) 80%, transparent);
+
+      /* Mathematical Spacing (rem) */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-14: 3.5rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+      --space-28: 7rem;
+      --space-40: 10rem;
     }
 
+    /* Core Reset */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; overflow-x: hidden; }
+    html { scroll-behavior: smooth; overflow-x: hidden; background: var(--black); }
     body {
       background: var(--void);
       color: var(--chrome);
@@ -34,434 +91,227 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    @media (pointer: fine) { * { cursor: none !important; } }
+    /* Hardware-Native Signature Cursors (Replaces cursor: none) */
+    @media (pointer: fine) { 
+      * { 
+        cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10L12 2Z' fill='%23ffffff' filter='drop-shadow(0 2px 4px rgba(0,0,0,0.6))'/%3E%3C/svg%3E") 12 12, auto !important; 
+      }
+      a, a *, button, button *, input, textarea, [tabindex="0"], .js-open-booking {
+        cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='3' fill='%23ffffff' filter='drop-shadow(0 2px 4px rgba(0,0,0,0.6))'/%3E%3Ccircle cx='12' cy='12' r='10' stroke='%23ffffff' stroke-width='1.5' opacity='0.5'/%3E%3C/svg%3E") 12 12, pointer !important;
+      }
+    }
+
     h1, h2, h3, .nav-item, .display-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
     section[id] { scroll-margin-top: 86px; }
-    a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
-
-    :focus-visible {
-      outline: 2px solid var(--ring);
-      outline-offset: 4px;
-    }
-
+    a, button, input, textarea { -webkit-tap-highlight-color: transparent; text-decoration: none; }
+    
+    :focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+    
+    /* Screen Reader Exclusives */
     .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
     }
 
-    #preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: var(--void);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+    /* System Layout Grid */
+    .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+    .lyt-flex-between { display: flex; justify-content: space-between; align-items: center; }
+    .lyt-flex-center { display: flex; justify-content: center; align-items: center; }
+    .lyt-flex-col { display: flex; flex-direction: column; }
+    
+    .hidden { display: none !important; }
+    @media (max-width: 768px) { .hide-mobile { display: none !important; } }
+    @media (min-width: 769px) { .hide-desktop { display: none !important; } }
+
+    /* Structural Grids */
+    .lyt-grid-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); }
+    .lyt-grid-exp { display: grid; gap: var(--space-12); align-items: center; }
+    .lyt-grid-fleet { display: grid; grid-template-columns: 1fr; border-top: 1px solid color-mix(in oklch, var(--white) 8%, transparent); }
+    .lyt-grid-footer { display: grid; grid-template-columns: 1fr; gap: var(--space-10); }
+    .lyt-grid-form { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+
+    @media (min-width: 768px) {
+      .md-flex-row { flex-direction: row; }
+      .lyt-grid-stats { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-12); }
+      .lyt-grid-fleet { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .lyt-grid-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lyt-grid-footer { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-8); }
+      .footer-col-main { grid-column: span 5 / span 5; }
+      .footer-col-nav { grid-column: span 3 / span 3; }
+      .footer-col-conn { grid-column: span 4 / span 4; }
     }
-    #preloader .load-brand {
-      font-family: 'Syncopate', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.7em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 2rem;
-    }
-    #preloader .load-track {
-      width: 180px;
-      height: 1px;
-      background: rgba(255,255,255,0.08);
-      position: relative;
-      overflow: hidden;
-    }
-    #preloader .load-fill {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 0%;
-      background: white;
-      transition: width 0.28s ease-out;
-    }
-    #preloader .load-count {
-      font-size: 10px;
-      letter-spacing: 0.3em;
-      color: rgba(255,255,255,0.25);
-      margin-top: 1.5rem;
-      font-variant-numeric: tabular-nums;
+    @media (min-width: 1024px) {
+      .lyt-grid-exp { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-20); }
+      .exp-col-img { grid-column: span 7 / span 7; }
+      .exp-col-txt { grid-column: span 5 / span 5; }
+      .footer-col-main { grid-column: span 6 / span 6; }
+      .footer-col-conn { grid-column: span 3 / span 3; }
     }
 
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: radial-gradient(ellipse 60% 50% at var(--mx, 50%) var(--my, 50%), rgba(30, 28, 25, 0.6) 0%, var(--void) 70%);
-      transition: background 0.5s ease-out;
-      will-change: background;
-    }
+    /* Gloss & Metallic Typography */
+    .txt-gray-300 { color: color-mix(in oklch, var(--white) 85%, transparent); }
+    .txt-gray-400 { color: color-mix(in oklch, var(--white) 70%, transparent); }
+    .txt-gray-500 { color: color-mix(in oklch, var(--white) 55%, transparent); }
+    .txt-gray-600 { color: color-mix(in oklch, var(--white) 40%, transparent); }
+    .txt-white { color: var(--white); }
+    .txt-black { color: var(--black); }
+    .txt-balance { text-wrap: balance; }
+    .txt-center { text-align: center; }
 
-    .noise {
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-      opacity: 0.4;
-      pointer-events: none;
-      z-index: 9990;
-    }
-
-    #scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 2px;
-      width: 0%;
-      background: white;
-      z-index: 9500;
-      transform-origin: left;
-    }
-
-    .custom-cursor,
-    .cursor-follower {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9998;
-      opacity: 0;
-      will-change: transform;
+    /* Cinematic Typography - Replacing the cheap gloss/stroke */
+    .txt-titanium {
+      color: var(--accent);
       mix-blend-mode: difference;
     }
-    .custom-cursor {
-      width: 8px;
-      height: 8px;
-      background: white;
-      border-radius: 999px;
-    }
-    .cursor-follower {
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 999px;
-      z-index: 9997;
-      transition: width 0.4s var(--ease-lux), height 0.4s var(--ease-lux), border-color 0.4s ease, background-color 0.4s ease, opacity 0.4s ease;
-    }
-    @media (pointer: coarse), (max-width: 768px) {
-      .custom-cursor, .cursor-follower { display: none !important; }
-    }
-
-    .glass-nav {
-      background: rgba(7, 6, 5, 0.55);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: transform 0.6s var(--ease-lux), background 0.6s ease;
-    }
-    .glass-nav.scrolled { background: rgba(7, 6, 5, 0.86); }
-    .nav-link {
+    
+    .txt-mask-reveal {
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.15);
       position: relative;
-      padding-bottom: 2px;
     }
-    .nav-link::after {
-      content: '';
+    .txt-mask-reveal::before {
+      content: attr(data-text);
       position: absolute;
-      bottom: 0;
       left: 0;
-      width: 0;
-      height: 1px;
-      background: white;
-      transition: width 0.5s var(--ease-out-expo);
+      top: 0;
+      -webkit-text-fill-color: var(--white);
+      -webkit-text-stroke: 0px;
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+      transition: clip-path 1.2s var(--ease-lux);
     }
-    .nav-link:hover::after,
-    .nav-link:focus-visible::after { width: 100%; }
+    .lyt-hero:hover .txt-mask-reveal::before {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
 
-    .hamburger { width: 24px; height: 14px; position: relative; }
-    .hamburger span {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background: white;
-      transition: all 0.5s var(--ease-lux);
+    /* Interaction Preloader */
+    #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--black); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+    #preloader .load-brand { font-family: 'Syncopate', sans-serif; font-size: 11px; letter-spacing: 0.7em; text-transform: uppercase; color: var(--white); margin-bottom: var(--space-8); }
+    #preloader .load-track { width: 180px; height: 1px; background: color-mix(in oklch, var(--white) 10%, transparent); position: relative; overflow: hidden; }
+    #preloader .load-fill { position: absolute; inset: 0 auto 0 0; width: 0%; background: var(--white); transition: width 0.28s ease-out; }
+    #preloader .load-count { font-size: 10px; letter-spacing: 0.3em; color: var(--white); margin-top: var(--space-6); font-variant-numeric: tabular-nums; }
+
+    /* Z-Axis Depth / Background Canvas */
+    #bg-canvas { position: fixed; inset: 0; z-index: -1; will-change: background; background: var(--black); }
+    .noise { position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"); opacity: 0.6; pointer-events: none; z-index: 9990; mix-blend-mode: overlay; }
+    @media (max-width: 768px) { .noise { display: none !important; } }
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--white); z-index: 9500; transform-origin: left; }
+
+    /* Magnetic Cursor CSS REMOVED - Memory Reclaimed */
+    
+    /* Navigation High-Gloss Glassmorphism */
+    .glass-nav { 
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 900; padding: var(--space-4) var(--space-6); 
+      background: var(--nav-glass); backdrop-filter: blur(24px) saturate(120%); -webkit-backdrop-filter: blur(24px) saturate(120%); 
+      border-bottom: 1px solid color-mix(in oklch, var(--white) 12%, transparent); 
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+      transition: transform 0.6s var(--ease-lux), background 0.6s ease; 
     }
+    @media (min-width: 768px) { .glass-nav { padding: var(--space-5) var(--space-10); } }
+    @media (min-width: 1024px) { .glass-nav { padding: var(--space-6) var(--space-14); } }
+    .glass-nav.scrolled { background: var(--nav-glass-scrolled); box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8); }
+    
+    .nav-brand { font-size: 1.125rem; font-weight: 700; letter-spacing: -0.05em; display: flex; align-items: center; gap: 0.375rem; color: var(--white); }
+    @media (min-width: 768px) { .nav-brand { font-size: 1.25rem; } }
+    
+    .nav-links { display: none; align-items: center; gap: var(--space-10); }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    @media (min-width: 1024px) { .nav-links { gap: var(--space-14); } }
+    
+    .nav-link { position: relative; padding-bottom: 2px; font-size: 10px; font-weight: 600; letter-spacing: 0.25em; color: var(--txt-gray-300); transition: color 0.3s ease; }
+    .nav-link:hover { color: var(--white); text-shadow: 0 0 12px rgba(255,255,255,0.4); }
+    .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--white); transition: width 0.5s var(--ease-out-expo); box-shadow: 0 0 8px var(--white); }
+    .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+
+    /* Mobile Menu Toggle */
+    .hamburger { width: 24px; height: 14px; position: relative; background: transparent; border: none; }
+    .hamburger span { position: absolute; left: 0; width: 100%; height: 1px; background: var(--white); transition: all 0.5s var(--ease-lux); }
     .hamburger span:first-child { top: 0; }
     .hamburger span:last-child { bottom: 0; width: 60%; }
     .hamburger.active span:first-child { top: 50%; transform: rotate(45deg); }
     .hamburger.active span:last-child { bottom: 50%; width: 100%; transform: rotate(-45deg); }
 
-    #mobile-menu {
-      position: fixed;
-      inset: 0;
-      z-index: 850;
-      background: var(--void);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s var(--ease-lux);
-    }
-    #mobile-menu.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    #mobile-menu .menu-link {
-      display: block;
-      font-family: 'Syncopate', sans-serif;
-      font-size: clamp(1.5rem, 6vw, 2.5rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: rgba(255,255,255,0.3);
-      padding: 0.75rem 0;
-      transform: translateY(30px);
-      opacity: 0;
-      transition: color 0.3s ease, transform 0.6s var(--ease-out-expo), opacity 0.6s ease;
-    }
-    #mobile-menu.active .menu-link {
-      transform: translateY(0);
-      opacity: 1;
-      color: white;
-    }
+    /* Fullscreen Mobile Nav */
+    #mobile-menu { position: fixed; inset: 0; z-index: 850; background: var(--void); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.6s var(--ease-lux); }
+    #mobile-menu.active { opacity: 1; pointer-events: all; }
+    #mobile-menu .menu-link { display: block; font-family: 'Syncopate', sans-serif; font-size: clamp(1.5rem, 6vw, 2.5rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: color-mix(in oklch, var(--white) 40%, transparent); padding: 0.75rem 0; transform: translateY(30px); opacity: 0; transition: color 0.3s ease, transform 0.6s var(--ease-out-expo), text-shadow 0.3s ease; }
+    #mobile-menu.active .menu-link:hover { text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+    #mobile-menu.active .menu-link { transform: translateY(0); opacity: 1; color: var(--white); }
     #mobile-menu.active .menu-link:nth-child(1) { transition-delay: 0.1s; }
     #mobile-menu.active .menu-link:nth-child(2) { transition-delay: 0.2s; }
     #mobile-menu.active .menu-link:nth-child(3) { transition-delay: 0.3s; }
     #mobile-menu.active .menu-link:nth-child(4) { transition-delay: 0.4s; }
 
-    .hero-title {
-      font-size: clamp(2rem, 8.5vw, 10rem);
-      line-height: 0.88;
-      letter-spacing: -0.05em;
-    }
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: clamp(1.8rem, 12vw, 3.5rem);
-        line-height: 0.95;
-        letter-spacing: -0.03em;
-      }
-    }
-    .hero-accent-line { width: 0; height: 1px; background: rgba(255,255,255,0.15); }
-    .hero-diamond { width: 6px; height: 6px; border: 1px solid rgba(255,255,255,0.2); transform: rotate(45deg) scale(0); flex-shrink: 0; }
-
-    .fleet-card {
-      position: relative;
-      height: 75vh;
-      overflow: hidden;
-    }
-    .fleet-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: grayscale(1) brightness(0.45);
-      transform: scale(1.05);
-      transition: filter 1.2s var(--ease-lux), transform 1.8s var(--ease-lux);
-      will-change: transform, filter;
-      background: linear-gradient(180deg, #121212, #090909);
-    }
-    .fleet-card:hover .fleet-img,
-    .fleet-card:focus-within .fleet-img,
-    .fleet-card:active .fleet-img {
-      filter: grayscale(0) brightness(0.85);
-      transform: scale(1.12);
-    }
-    .fleet-card .fleet-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.15) 40%, transparent 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: clamp(1.5rem, 4vw, 2.5rem);
-    }
-    .fleet-card .fleet-number {
-      position: absolute;
-      top: clamp(1.5rem, 4vw, 2.5rem);
-      left: clamp(1.5rem, 4vw, 2.5rem);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.3);
-      font-weight: 300;
-    }
-    .fleet-card .fleet-line {
-      width: 0;
-      height: 1px;
-      background: rgba(255,255,255,0.3);
-      margin-bottom: 1rem;
-      transition: width 0.8s var(--ease-out-expo);
-    }
-    .fleet-card:hover .fleet-line,
-    .fleet-card:focus-within .fleet-line { width: 40px; }
-    .fleet-card .fleet-title { transform: translateY(10px); transition: transform 0.8s var(--ease-out-expo); }
-    .fleet-card:hover .fleet-title,
-    .fleet-card:focus-within .fleet-title { transform: translateY(0); }
-    .fleet-card .fleet-sub {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.8s var(--ease-out-expo) 0.1s;
-    }
-    .fleet-card:hover .fleet-sub,
-    .fleet-card:focus-within .fleet-sub {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    @media (max-width: 768px) {
-      .fleet-card { height: 55vh; min-height: 350px; }
-      .fleet-card .fleet-line { width: 24px; }
-      .fleet-card .fleet-sub { opacity: 0.75; transform: translateY(0); }
-      .fleet-card .fleet-title { transform: translateY(0); }
-    }
-
-    .img-reveal-wrap { position: relative; overflow: hidden; }
-    .img-reveal-curtain {
-      position: absolute;
-      inset: 0;
-      background: var(--void);
-      z-index: 2;
-      transform-origin: right center;
-    }
-
-    #drawer-backdrop {
-      position: fixed;
-      inset: 0;
-      z-index: 998;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s var(--ease-lux);
-    }
+    /* Booking Drawer */
+    #drawer-backdrop { position: fixed; inset: 0; z-index: 998; background: var(--drawer-glass); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity 0.6s var(--ease-lux); }
     #drawer-backdrop.active { opacity: 1; pointer-events: all; }
-    .booking-drawer {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      max-width: 520px;
-      height: 100dvh;
-      background: #0a0908;
-      z-index: 999;
-      padding: clamp(2rem, 5vw, 3.5rem);
-      padding-top: clamp(2.5rem, 6vw, 4rem);
-      transform: translateX(105%);
-      transition: transform 0.8s var(--ease-out-expo);
-      border-left: 1px solid rgba(255,255,255,0.05);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-    }
+    .booking-drawer { position: fixed; top: 0; right: 0; width: 100%; max-width: 520px; height: 100dvh; background: oklch(4% 0.005 60); z-index: 999; padding: clamp(2.5rem, 6vw, 4rem) clamp(2rem, 5vw, 3.5rem) clamp(2rem, 5vw, 3.5rem); transform: translateX(105%); transition: transform 0.8s var(--ease-out-expo); border-left: 1px solid color-mix(in oklch, var(--white) 10%, transparent); overflow-y: auto; overscroll-behavior: contain; box-shadow: -10px 0 50px rgba(0,0,0,0.8); }
     .booking-drawer.active { transform: translateX(0); }
-
-    .form-input {
-      width: 100%;
-      background: transparent;
-      border: none;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      padding: 0.85rem 0;
-      font-size: 0.9rem;
-      color: white;
-      outline: none;
-      transition: all 0.4s var(--ease-lux);
-      border-radius: 0;
-      -webkit-appearance: none;
-    }
-    .form-input:focus {
-      border-color: rgba(255,255,255,0.6);
-      padding-left: 0.5rem;
-    }
-    .form-input::placeholder { color: rgba(255,255,255,0.25); }
+    
+    .form-input { width: 100%; background: transparent; border: none; border-bottom: 1px solid color-mix(in oklch, var(--white) 20%, transparent); padding: 0.85rem 0; font-size: 0.9rem; color: var(--white); outline: none; transition: all 0.4s var(--ease-lux); border-radius: 0; -webkit-appearance: none; }
+    .form-input:focus { border-color: var(--accent); padding-left: 0.5rem; }
+    .form-input::placeholder { color: color-mix(in oklch, var(--white) 35%, transparent); }
     input[type="date"], input[type="time"] { color-scheme: dark; }
+    
+    .service-btn { padding: 0.7rem 1.25rem; border: 1px solid color-mix(in oklch, var(--white) 15%, transparent); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500; background: transparent; color: color-mix(in oklch, var(--white) 60%, transparent); transition: all 0.4s var(--ease-lux); cursor: pointer; }
+    .service-btn:hover, .service-btn:focus-visible { border-color: var(--accent); color: var(--accent); box-shadow: inset 0 0 15px color-mix(in oklch, var(--accent) 10%, transparent); }
+    .service-btn.selected { background: var(--white); color: var(--black); border-color: var(--white); box-shadow: 0 0 20px color-mix(in oklch, var(--white) 30%, transparent); }
+    
+    .field-error, .form-message { font-size: 11px; line-height: 1.5; color: oklch(75% 0.15 20); margin-top: 0.75rem; }
+    .form-message.ok { color: color-mix(in oklch, var(--white) 80%, transparent); }
 
-    .service-btn {
-      padding: 0.7rem 1.25rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-weight: 500;
-      background: transparent;
-      color: rgba(255,255,255,0.5);
-      transition: all 0.4s var(--ease-lux);
-    }
-    .service-btn:hover,
-    .service-btn:focus-visible {
-      border-color: rgba(255,255,255,0.4);
-      color: white;
-    }
-    .service-btn.selected {
-      background: white;
-      color: black;
-      border-color: white;
-    }
+    /* Sections & Spacing */
+    .lyt-section-padding { padding: var(--space-16) 0; }
+    @media (min-width: 768px) { .lyt-section-padding { padding: var(--space-24) 0; } }
+    .lyt-section-padding-lg { padding: var(--space-24) 0; }
+    @media (min-width: 768px) { .lyt-section-padding-lg { padding: var(--space-40) 0; } }
 
-    .field-error,
-    .form-message {
-      font-size: 11px;
-      line-height: 1.5;
-      color: #f5c2c7;
-      margin-top: 0.75rem;
-    }
-    .form-message.ok { color: rgba(255,255,255,0.65); }
+    /* Hero Section - Refined Cinematic Luxury */
+    .lyt-hero { position: relative; height: 100dvh; display: flex; align-items: center; justify-content: flex-start; padding: 0 8vw; overflow: hidden; }
+    .hero-title { font-size: clamp(2.5rem, 6.5vw, 6.5rem); line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; z-index: 10; position: relative; mix-blend-mode: difference; transform: translateZ(0); }
+    @media (max-width: 480px) { .hero-title { font-size: clamp(2rem, 10vw, 3rem); line-height: 1.05; } }
 
-    .structural-line {
-      height: 1px;
-      width: 100%;
-      background: rgba(255,255,255,0.06);
-      transform-origin: left;
-      transform: scaleX(0);
-    }
+    /* Fleet Component */
+    .fleet-card { position: relative; height: 75vh; overflow: hidden; outline: none; }
+    .fleet-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) brightness(0.35); transform: scale(1.05); transition: filter 1.2s var(--ease-lux), transform 1.8s var(--ease-lux); will-change: transform, filter; background: linear-gradient(180deg, oklch(4% 0 0), oklch(2% 0 0)); }
+    .fleet-card:hover .fleet-img, .fleet-card:focus-within .fleet-img, .fleet-card:active .fleet-img { filter: grayscale(0) brightness(0.85); transform: scale(1.12); }
+    .fleet-card .fleet-overlay { position: absolute; inset: 0; background: linear-gradient(to top, color-mix(in oklch, var(--black) 95%, transparent) 0%, color-mix(in oklch, var(--black) 25%, transparent) 40%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(1.5rem, 4vw, 2.5rem); }
+    .fleet-card .fleet-number { position: absolute; top: clamp(1.5rem, 4vw, 2.5rem); left: clamp(1.5rem, 4vw, 2.5rem); font-size: 10px; letter-spacing: 0.2em; color: var(--accent); font-weight: 500; }
+    .fleet-card .fleet-line { width: 0; height: 1px; background: var(--accent); margin-bottom: 1rem; transition: width 0.8s var(--ease-out-expo); box-shadow: 0 0 8px var(--accent); }
+    .fleet-card:hover .fleet-line, .fleet-card:focus-within .fleet-line { width: 40px; }
+    .fleet-card .fleet-title { transform: translateY(10px); transition: transform 0.8s var(--ease-out-expo); text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
+    .fleet-card:hover .fleet-title, .fleet-card:focus-within .fleet-title { transform: translateY(0); }
+    .fleet-card .fleet-sub { opacity: 0; transform: translateY(8px); transition: all 0.8s var(--ease-out-expo) 0.1s; }
+    .fleet-card:hover .fleet-sub, .fleet-card:focus-within .fleet-sub { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) { .fleet-card { height: 55vh; min-height: 350px; } .fleet-card .fleet-line { width: 24px; } .fleet-card .fleet-sub { opacity: 0.75; transform: translateY(0); } .fleet-card .fleet-title { transform: translateY(0); } }
 
+    /* Motion Decorators */
+    .img-reveal-wrap { position: relative; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+    .img-reveal-curtain { position: absolute; inset: 0; background: var(--void); z-index: 2; transform-origin: right center; }
+    .structural-line { height: 1px; width: 100%; background: color-mix(in oklch, var(--white) 10%, transparent); transform-origin: left; transform: scaleX(0); }
+    
     .magnetic-wrap { display: inline-block; position: relative; }
-    .cta-btn {
-      position: relative;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
+    
+    /* Stripped-down Luxury CTA Button */
+    .cta-btn { 
+      position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; 
+      background: transparent; 
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer; transition: all 0.4s var(--ease-lux);
     }
-    .cta-btn .btn-fill {
-      position: absolute;
-      inset: 0;
-      background: white;
-      transform: translateY(102%);
-      transition: transform 0.6s var(--ease-lux);
-    }
-    .cta-btn:hover .btn-fill,
-    .cta-btn:focus-visible .btn-fill { transform: translateY(0); }
-    .cta-btn:hover .btn-text,
-    .cta-btn:focus-visible .btn-text { color: black; }
+    .cta-btn .btn-fill { position: absolute; inset: 0; background: var(--white); transform: translateY(102%); transition: transform 0.6s var(--ease-lux); }
+    .cta-btn:hover { border-color: var(--white) !important; }
+    .cta-btn:hover .btn-fill, .cta-btn:focus-visible .btn-fill { transform: translateY(0); }
+    .cta-btn:hover .btn-text, .cta-btn:focus-visible .btn-text { color: var(--black); }
     .btn-text { position: relative; z-index: 1; transition: color 0.5s ease; }
 
+    /* Initial Animation States */
     .reveal-up { opacity: 0; transform: translateY(50px); }
-    .quote-mark {
-      font-family: Georgia, 'Times New Roman', serif;
-      font-size: clamp(4rem, 8vw, 8rem);
-      line-height: 1;
-      color: rgba(255,255,255,0.06);
-      position: absolute;
-      top: -0.2em;
-      left: -0.05em;
-      user-select: none;
-      pointer-events: none;
-    }
+    .quote-mark { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(4rem, 8vw, 8rem); line-height: 1; color: color-mix(in oklch, var(--white) 8%, transparent); position: absolute; top: -0.2em; left: -0.05em; user-select: none; pointer-events: none; }
 
-    .text-balance { text-wrap: balance; }
-    .hidden-when-active[aria-hidden="true"] { visibility: hidden; }
-
-    @media (max-width: 768px) { .hide-mobile { display: none !important; } }
-    @media (min-width: 769px) { .hide-desktop { display: none !important; } }
-
+    /* Accessibility Fallback - Reduces Motion Override */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
       .reveal-up { opacity: 1; transform: none; }
       .structural-line { transform: scaleX(1); }
       .hero-accent-line { width: 60px; }
@@ -471,341 +321,354 @@
     }
   </style>
 </head>
+
 <body class="preload-locked">
+  
+  <span class="sr-only">Jackson Limousine Services - Official Website</span>
+
+  <!-- Preloader UI -->
   <div id="preloader" aria-hidden="true">
     <div class="load-brand">Jackson</div>
     <div class="load-track"><div class="load-fill" id="load-fill"></div></div>
     <div class="load-count" id="load-count">0</div>
   </div>
 
-  <div id="bg-canvas"></div>
-  <div class="noise"></div>
-  <div class="custom-cursor" id="cursor"></div>
-  <div class="cursor-follower" id="follower"></div>
-  <div id="scroll-progress" aria-hidden="true"></div>
+  <!-- Z-Axis Architecture Elements -->
+  <div id="bg-canvas" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <!-- DOM Cursors REMOVED -->
+  <div id="scroll-progress" aria-hidden="true" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 
-  <nav id="main-nav" class="glass-nav fixed w-full z-[900] px-5 md:px-10 lg:px-14 py-4 md:py-5 flex justify-between items-center">
-    <a href="#hero" class="text-lg md:text-xl font-bold tracking-tighter nav-item flex items-center gap-1.5 text-white no-underline">
-      Jackson<span class="text-[8px] opacity-30 mt-0.5 tracking-normal">™</span>
+  <!-- Primary Navigation -->
+  <nav id="main-nav" class="glass-nav lyt-flex-between" aria-label="Main Navigation">
+    <a href="#hero" class="nav-brand nav-item" aria-label="Jackson Limousines Home">
+      Jackson<span style="font-size: 8px; opacity: 0.3; margin-top: 2px; letter-spacing: normal;" aria-hidden="true">™</span>
     </a>
 
-    <div class="hidden md:flex items-center gap-10 lg:gap-14">
-      <a href="#fleet" class="nav-link text-[10px] font-semibold tracking-[0.25em] nav-item text-gray-400 hover:text-white no-underline">Fleet</a>
-      <a href="#experience" class="nav-link text-[10px] font-semibold tracking-[0.25em] nav-item text-gray-400 hover:text-white no-underline">Experience</a>
-      <a href="#contact" class="nav-link text-[10px] font-semibold tracking-[0.25em] nav-item text-gray-400 hover:text-white no-underline">Contact</a>
+    <div class="nav-links">
+      <a href="#fleet" class="nav-link nav-item">Fleet</a>
+      <a href="#experience" class="nav-link nav-item">Experience</a>
+      <a href="#contact" class="nav-link nav-item">Contact</a>
     </div>
 
-    <div class="flex items-center gap-5">
-      <a href="tel:+18885551234" class="hidden lg:flex items-center gap-2 text-[10px] tracking-[0.15em] text-gray-500 hover:text-white no-underline transition-colors">
+    <div style="display: flex; align-items: center; gap: var(--space-5);">
+      <a href="tel:+18885551234" class="hide-mobile txt-gray-400" style="display: flex; align-items: center; gap: var(--space-2); font-size: 10px; letter-spacing: 0.15em; transition: color 0.3s;" aria-label="Call Jackson Limousines">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         (888) 555-1234
       </a>
 
       <div class="magnetic-wrap hide-mobile">
-        <button type="button" class="cta-btn text-[10px] px-7 py-3 border border-white/15 uppercase tracking-[0.2em] font-medium js-open-booking" aria-haspopup="dialog">
-          <span class="btn-fill"></span>
+        <button type="button" class="cta-btn js-open-booking" style="font-size: 10px; padding: var(--space-3) var(--space-8); border: 1px solid color-mix(in oklch, var(--white) 15%, transparent); text-transform: uppercase; letter-spacing: 0.2em; font-weight: 500;" aria-haspopup="dialog" aria-expanded="false" aria-controls="drawer">
+          <span class="btn-fill" aria-hidden="true"></span>
           <span class="btn-text">Reserve</span>
         </button>
       </div>
 
-      <button id="menu-toggle" class="hamburger hide-desktop" type="button" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
-        <span></span>
-        <span></span>
+      <button id="menu-toggle" class="hamburger hide-desktop" type="button" aria-label="Open mobile menu" aria-controls="mobile-menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
       </button>
     </div>
   </nav>
 
-  <div id="mobile-menu" aria-hidden="true">
-    <nav class="text-center space-y-2 mb-16">
+  <!-- Fullscreen Mobile Menu -->
+  <div id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Mobile Navigation">
+    <nav class="txt-center" style="margin-bottom: var(--space-16);">
       <a href="#fleet" class="menu-link">Fleet</a>
       <a href="#experience" class="menu-link">Experience</a>
       <a href="#contact" class="menu-link">Contact</a>
-      <button type="button" class="menu-link js-open-booking" style="background:none;border:none;">Reserve</button>
+      <button type="button" class="menu-link js-open-booking" style="background:none;border:none;margin:0 auto;cursor:pointer;">Reserve</button>
     </nav>
-    <div class="absolute bottom-10 left-0 right-0 text-center space-y-3">
-      <a href="tel:+18885551234" class="block text-sm text-gray-400 tracking-widest">+1 (888) 555-1234</a>
-      <div class="text-[9px] tracking-[0.4em] text-gray-600 uppercase">Scottsdale & Phoenix, AZ</div>
+    <div style="position: absolute; bottom: var(--space-10); left: 0; right: 0; text-align: center; gap: var(--space-3); display: flex; flex-direction: column;">
+      <a href="tel:+18885551234" class="txt-gray-400" style="font-size: 0.875rem; letter-spacing: 0.1em;">+1 (888) 555-1234</a>
+      <div class="txt-gray-600" style="font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase;">Scottsdale & Phoenix, AZ</div>
     </div>
   </div>
 
-  <div id="drawer-backdrop"></div>
+  <!-- Reservation Drawer -->
+  <div id="drawer-backdrop" aria-hidden="true"></div>
   <aside id="drawer" class="booking-drawer" role="dialog" aria-modal="true" aria-labelledby="reservation-heading" aria-hidden="true">
-    <div class="flex justify-between items-start mb-12 md:mb-16">
+    <div class="lyt-flex-between" style="margin-bottom: var(--space-12); align-items: flex-start;">
       <div>
-        <h2 id="reservation-heading" class="text-2xl md:text-3xl font-bold mb-2 display-font tracking-tight">Reservation</h2>
-        <p class="text-[9px] text-gray-500 tracking-[0.2em] uppercase">Private Chauffeur Services</p>
+        <h2 id="reservation-heading" class="display-font" style="font-size: clamp(1.5rem, 4vw, 1.875rem); font-weight: 700; margin-bottom: var(--space-2); letter-spacing: -0.025em; text-shadow: 0 2px 10px rgba(255,255,255,0.1);">Reservation</h2>
+        <p class="txt-gray-500" style="font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;">Private Chauffeur Services</p>
       </div>
-      <button id="close-drawer" type="button" class="text-[9px] text-gray-500 hover:text-white transition-colors tracking-[0.15em] uppercase border border-white/10 px-3 py-2 hover:border-white/30 font-medium" aria-label="Close reservation drawer">
-        Close<span class="hide-mobile"> [esc]</span>
+      <button id="close-drawer" type="button" class="txt-gray-500" style="font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid color-mix(in oklch, var(--white) 10%, transparent); padding: var(--space-2) var(--space-3); background: transparent; transition: color 0.3s, border-color 0.3s; cursor: pointer;" aria-label="Close reservation drawer">
+        Close<span class="hide-mobile" aria-hidden="true"> [esc]</span>
       </button>
     </div>
 
-    <form id="booking-form" class="space-y-8" novalidate>
-      <input type="hidden" id="service-input" name="service" />
+    <form id="booking-form" class="lyt-flex-col" style="gap: var(--space-8);" novalidate>
+      <input type="hidden" id="service-input" name="service" aria-hidden="true" />
 
-      <div>
-        <label class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-3">Service</label>
-        <div class="flex flex-wrap gap-2" role="radiogroup" aria-label="Service category">
-          <button type="button" class="service-btn" data-service="Airport Transfer">Airport</button>
-          <button type="button" class="service-btn" data-service="Corporate Travel">Corporate</button>
-          <button type="button" class="service-btn" data-service="Events Transportation">Events</button>
-          <button type="button" class="service-btn" data-service="Hourly Charter">Hourly</button>
+      <fieldset style="border:none; padding:0; margin:0;">
+        <legend class="txt-gray-500 sr-only">Select a Service Category</legend>
+        <label class="txt-gray-500" aria-hidden="true" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-3);">Service</label>
+        <div style="display: flex; flex-wrap: wrap; gap: var(--space-2);" role="radiogroup" aria-label="Service category options">
+          <button type="button" class="service-btn" data-service="Airport Transfer" role="radio" aria-checked="false">Airport</button>
+          <button type="button" class="service-btn" data-service="Corporate Travel" role="radio" aria-checked="false">Corporate</button>
+          <button type="button" class="service-btn" data-service="Events Transportation" role="radio" aria-checked="false">Events</button>
+          <button type="button" class="service-btn" data-service="Hourly Charter" role="radio" aria-checked="false">Hourly</button>
         </div>
-        <p id="service-error" class="field-error hidden" aria-live="polite">Select a service category.</p>
-      </div>
+        <p id="service-error" class="field-error hidden" aria-live="polite" style="display: none;">Select a service category.</p>
+      </fieldset>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="lyt-grid-form">
         <div>
-          <label for="full-name" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Full Name</label>
+          <label for="full-name" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Full Name</label>
           <input id="full-name" name="fullName" type="text" class="form-input" placeholder="Your name" autocomplete="name" required />
         </div>
         <div>
-          <label for="phone" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Phone</label>
+          <label for="phone" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Phone</label>
           <input id="phone" name="phone" type="tel" class="form-input" placeholder="(000) 000-0000" autocomplete="tel" inputmode="tel" required />
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="lyt-grid-form">
         <div>
-          <label for="date" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Date</label>
+          <label for="date" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Date</label>
           <input id="date" name="date" type="date" class="form-input" required />
         </div>
         <div>
-          <label for="time" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Time</label>
+          <label for="time" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Time</label>
           <input id="time" name="time" type="time" class="form-input" required />
         </div>
       </div>
 
       <div>
-        <label for="pickup" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Pickup Location</label>
+        <label for="pickup" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Pickup Location</label>
         <input id="pickup" name="pickup" type="text" class="form-input" placeholder="Resort, Sky Harbor Terminal, or address" required />
       </div>
 
       <div>
-        <label for="email" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Email</label>
+        <label for="email" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Email</label>
         <input id="email" name="email" type="email" class="form-input" placeholder="your@email.com" autocomplete="email" required />
       </div>
 
       <div>
-        <label for="requests" class="block text-[9px] uppercase tracking-[0.2em] text-gray-500 mb-1">Special Requests <span class="text-gray-700">(optional)</span></label>
+        <label for="requests" class="txt-gray-500" style="display: block; font-size: 9px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: var(--space-1);">Special Requests <span style="color: color-mix(in oklch, var(--white) 30%, transparent);">(optional)</span></label>
         <textarea id="requests" name="requests" class="form-input" rows="2" placeholder="Car seat, specific vehicle, accessibility needs, etc." style="resize:none;"></textarea>
       </div>
 
-      <p id="form-message" class="form-message hidden" aria-live="polite"></p>
+      <p id="form-message" class="form-message hidden" aria-live="polite" style="display: none;"></p>
 
-      <button type="submit" id="submit-btn" class="w-full py-5 bg-white text-black text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-gray-100 transition-all duration-500 mt-2 active:scale-[0.98]">
+      <button type="submit" id="submit-btn" style="width: 100%; padding: var(--space-5) 0; background: var(--white); color: var(--black); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; border: none; transition: all 0.5s; margin-top: var(--space-2); cursor: pointer; box-shadow: 0 0 15px rgba(255,255,255,0.2);">
         Confirm Request
       </button>
     </form>
 
-    <div id="success-state" class="hidden flex-col items-center justify-center text-center" style="min-height:60vh;">
-      <div class="w-14 h-14 border border-white/15 rounded-full flex items-center justify-center mb-8">
+    <div id="success-state" class="hidden lyt-flex-col" style="align-items: center; justify-content: center; text-align: center; min-height: 60vh; display: none;" aria-live="polite">
+      <div style="width: 3.5rem; height: 3.5rem; border: 1px solid color-mix(in oklch, var(--white) 15%, transparent); border-radius: 999px; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-8); box-shadow: 0 0 20px rgba(255,255,255,0.1);">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
-      <h3 class="text-lg font-bold mb-3 display-font tracking-[0.1em]">Request Prepared</h3>
-      <p class="text-sm text-gray-400 leading-relaxed max-w-xs">Your reservation details were prepared for dispatch. If your mail app did not open, the request text was copied so you can paste it into an email.</p>
-      <button id="new-request" type="button" class="mt-10 text-[9px] tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors border-b border-white/10 pb-1">New Request</button>
+      <h3 class="display-font" style="font-size: 1.125rem; font-weight: 700; margin-bottom: var(--space-3); letter-spacing: 0.1em;">Request Prepared</h3>
+      <p class="txt-gray-400" style="font-size: 0.875rem; line-height: 1.625; max-width: 20rem;">Your reservation details were prepared for dispatch. If your mail app did not open, the request text was copied so you can paste it into an email.</p>
+      <button id="new-request" type="button" class="txt-gray-500" style="margin-top: var(--space-10); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; background: transparent; border: none; border-bottom: 1px solid color-mix(in oklch, var(--white) 10%, transparent); padding-bottom: var(--space-1); transition: color 0.3s; cursor: pointer;">New Request</button>
     </div>
   </aside>
 
-  <main id="site-content">
-    <section id="hero" class="relative h-screen h-[100dvh] flex items-center justify-center overflow-hidden">
-      <div class="container mx-auto px-6 text-center z-10 relative">
-        <div class="overflow-hidden mb-6 md:mb-8">
-          <span id="hero-meta" class="inline-block text-[8px] md:text-[9px] tracking-[0.5em] md:tracking-[0.7em] text-gray-500 uppercase font-medium opacity-0 translate-y-4">Premium Chauffeured Service · Phoenix & Scottsdale</span>
+  <!-- Core Content Architecture -->
+  <main id="site-content" role="main">
+    
+    <!-- Hero Section -->
+    <section id="hero" class="lyt-hero" aria-label="Introduction">
+      <!-- High-End Blended Background Layer -->
+      <div style="position: absolute; inset: 0; z-index: 1;">
+        <img src="https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: contrast(1.1) grayscale(0.2); mix-blend-mode: luminosity;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, color-mix(in oklch, var(--void) 40%, transparent) 0%, var(--void) 100%);"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to right, var(--void) 0%, transparent 100%);"></div>
+      </div>
+
+      <div class="container" style="z-index: 10; position: relative; max-width: 1800px; padding: 0;">
+        <div style="margin-bottom: var(--space-6);">
+          <span id="hero-meta" class="txt-gray-500" style="display: inline-block; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 500; opacity: 0; transform: translateY(1rem);">Premium Chauffeured Service — Phoenix & Scottsdale</span>
         </div>
 
-        <div class="flex items-center justify-center gap-3 md:gap-5 mb-6 md:mb-10" id="hero-accent-top">
-          <div class="hero-accent-line" style="max-width:60px"></div>
-          <div class="hero-diamond"></div>
-          <div class="hero-accent-line" style="max-width:60px"></div>
-        </div>
-
-        <h1 class="hero-title select-none">
-          <div class="overflow-hidden"><span class="h-line block">Beyond</span></div>
-          <div class="overflow-hidden"><span class="h-line block text-[#4a4a4a]">Ordinary</span></div>
-          <div class="overflow-hidden"><span class="h-line block">Transit</span></div>
+        <h1 class="hero-title" style="user-select: none;">
+          <div class="h-wrap" style="padding-bottom: 1vh;"><span class="h-line" style="display: block; color: var(--white);">Absolute</span></div>
+          <div class="h-wrap" style="padding-bottom: 1vh; margin-left: 6vw;"><span class="h-line" style="display: block; color: var(--accent);">Discretion.</span></div>
         </h1>
 
-        <div class="flex items-center justify-center gap-3 md:gap-5 mt-6 md:mt-10" id="hero-accent-bottom">
-          <div class="hero-accent-line" style="max-width:60px"></div>
-          <div class="hero-diamond"></div>
-          <div class="hero-accent-line" style="max-width:60px"></div>
-        </div>
-
-        <div class="mt-12 md:mt-16 opacity-0" id="hero-cta">
-          <a href="#fleet" class="text-[9px] tracking-[0.35em] uppercase text-gray-500 hover:text-white transition-colors duration-500 flex flex-col items-center gap-4 no-underline">
-            <span>Explore the Fleet</span>
-            <svg class="animate-bounce" width="12" height="24" viewBox="0 0 12 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4" aria-hidden="true">
-              <line x1="6" y1="0" x2="6" y2="22" />
-              <polyline points="2,18 6,22 10,18" />
-            </svg>
+        <div style="margin-top: var(--space-12); opacity: 0; margin-left: 6vw;" id="hero-cta">
+          <a href="#fleet" style="position: relative; display: inline-flex; align-items: center; gap: var(--space-4); text-decoration: none; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); transition: color 0.5s;" aria-label="Scroll to Fleet section">
+            <span>View Assets</span>
+            <div style="width: 60px; height: 1px; background: rgba(255,255,255,0.2); position: relative; overflow: hidden;">
+              <div style="position: absolute; top:0; left:0; height:100%; width: 100%; background: var(--white); transform-origin: left; transform: scaleX(0); transition: transform 0.6s var(--ease-lux);" id="cta-line-hover"></div>
+            </div>
           </a>
         </div>
       </div>
+      <style>
+        #hero-cta a:hover #cta-line-hover { transform: scaleX(1); }
+        #hero-cta a:hover { color: var(--white); }
+      </style>
     </section>
 
-    <section class="py-16 md:py-24 border-y border-white/[0.04]">
-      <div class="container mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-          <div class="text-center reveal-up">
-            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="40">0</span><span class="text-gray-600">+</span></div>
-            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Years in Service</div>
+    <!-- Statistics Section -->
+    <section class="lyt-section-padding" style="border-top: 1px solid color-mix(in oklch, var(--white) 8%, transparent); border-bottom: 1px solid color-mix(in oklch, var(--white) 8%, transparent); background: linear-gradient(90deg, transparent, color-mix(in oklch, var(--white) 2%, transparent), transparent);" aria-label="Company Statistics">
+      <div class="container">
+        <div class="lyt-grid-stats">
+          <div class="txt-center reveal-up">
+            <div class="display-font" style="font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; text-shadow: 0 0 20px rgba(255,255,255,0.1);"><span class="counter" data-target="40">0</span><span class="txt-gray-600">+</span></div>
+            <div class="txt-gray-600" style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; margin-top: var(--space-3);">Years in Service</div>
           </div>
-          <div class="text-center reveal-up">
-            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="24">0</span><span class="text-gray-600">/7</span></div>
-            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Dispatch Coverage</div>
+          <div class="txt-center reveal-up">
+            <div class="display-font" style="font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; text-shadow: 0 0 20px rgba(255,255,255,0.1);"><span class="counter" data-target="24">0</span><span class="txt-gray-600">/7</span></div>
+            <div class="txt-gray-600" style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; margin-top: var(--space-3);">Dispatch Coverage</div>
           </div>
-          <div class="text-center reveal-up">
-            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="3">0</span><span class="text-gray-600">+</span></div>
-            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Service Categories</div>
+          <div class="txt-center reveal-up">
+            <div class="display-font" style="font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; text-shadow: 0 0 20px rgba(255,255,255,0.1);"><span class="counter" data-target="3">0</span><span class="txt-gray-600">+</span></div>
+            <div class="txt-gray-600" style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; margin-top: var(--space-3);">Service Categories</div>
           </div>
-          <div class="text-center reveal-up">
-            <div class="text-3xl md:text-5xl font-bold display-font tracking-tight"><span class="counter" data-target="365">0</span></div>
-            <div class="text-[8px] md:text-[9px] tracking-[0.3em] text-gray-600 uppercase mt-2 md:mt-3">Days Available</div>
+          <div class="txt-center reveal-up">
+            <div class="display-font" style="font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.025em; text-shadow: 0 0 20px rgba(255,255,255,0.1);"><span class="counter" data-target="365">0</span></div>
+            <div class="txt-gray-600" style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; margin-top: var(--space-3);">Days Available</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="experience" class="py-24 md:py-40 px-6">
-      <div class="structural-line mb-16 md:mb-28" id="line-exp"></div>
-      <div class="container mx-auto grid lg:grid-cols-12 gap-12 md:gap-20 items-center">
-        <div class="lg:col-span-7 reveal-up">
-          <div class="img-reveal-wrap aspect-[16/10] border border-white/[0.04]">
-            <div class="img-reveal-curtain" id="img-curtain"></div>
-            <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1600" alt="Luxury limousine interior with leather seating" class="w-full h-full object-cover grayscale opacity-70" id="parallax-img" loading="lazy" />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none"></div>
+    <!-- Experience Section -->
+    <section id="experience" class="lyt-section-padding-lg" style="padding-left: var(--space-6); padding-right: var(--space-6);" aria-labelledby="exp-heading">
+      <div class="structural-line" id="line-exp" style="margin-bottom: var(--space-28); box-shadow: 0 0 10px rgba(255,255,255,0.1);" aria-hidden="true"></div>
+      <div class="container lyt-grid-exp">
+        <div class="exp-col-img reveal-up">
+          <div class="img-reveal-wrap" style="aspect-ratio: 16/10; border: 1px solid color-mix(in oklch, var(--white) 15%, transparent);">
+            <div class="img-reveal-curtain" id="img-curtain" aria-hidden="true"></div>
+            <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1600" alt="Luxury limousine interior highlighting clean leather seating" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); opacity: 0.8;" id="parallax-img" loading="lazy" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, var(--black), transparent); pointer-events: none;" aria-hidden="true"></div>
           </div>
         </div>
-        <div class="lg:col-span-5 space-y-8 md:space-y-10">
+        <div class="exp-col-txt lyt-flex-col" style="gap: var(--space-10);">
           <div class="reveal-up">
-            <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.1] tracking-tight">Precision<br /><span class="text-gray-500">In Motion.</span></h2>
+            <h2 id="exp-heading" style="font-size: clamp(1.875rem, 5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.025em; text-shadow: 0 4px 20px rgba(255,255,255,0.1);">Precision<br /><span class="txt-gray-500">In Motion.</span></h2>
           </div>
           <div class="reveal-up">
-            <p class="text-gray-400 text-sm md:text-[15px] leading-[1.9] max-w-md font-light text-balance">Serving the Valley since 1985 means every pickup, route, and handoff is built around consistency. Clean arrival windows, polished vehicles, discreet drivers, and no wasted motion.</p>
+            <p class="txt-gray-400 txt-balance" style="font-size: 15px; line-height: 1.9; max-width: 28rem; font-weight: 300;">Serving the Valley since 1985 means every pickup, route, and handoff is built around consistency. Clean arrival windows, polished vehicles, discreet drivers, and no wasted motion.</p>
           </div>
-          <div class="reveal-up pt-6 border-t border-white/[0.06]">
-            <div class="text-[8px] tracking-[0.3em] text-gray-600 uppercase mb-4">Built For</div>
-            <div class="flex flex-wrap gap-x-6 gap-y-2">
-              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">AIRPORT</span>
-              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">CORPORATE</span>
-              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">EVENTS</span>
-              <span class="text-[10px] font-bold tracking-[0.15em] text-gray-500">HOURLY</span>
+          <div class="reveal-up" style="padding-top: var(--space-6); border-top: 1px solid color-mix(in oklch, var(--white) 10%, transparent);">
+            <div class="txt-gray-600" style="font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: var(--space-4);" aria-hidden="true">Built For</div>
+            <div style="display: flex; flex-wrap: wrap; column-gap: var(--space-6); row-gap: var(--space-2);" aria-label="Service Types">
+              <span class="txt-white" style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-shadow: 0 0 10px rgba(255,255,255,0.2);">AIRPORT</span>
+              <span class="txt-white" style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-shadow: 0 0 10px rgba(255,255,255,0.2);">CORPORATE</span>
+              <span class="txt-white" style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-shadow: 0 0 10px rgba(255,255,255,0.2);">EVENTS</span>
+              <span class="txt-white" style="font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-shadow: 0 0 10px rgba(255,255,255,0.2);">HOURLY</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="fleet" class="pt-12 md:pt-20">
-      <div class="container mx-auto px-6 mb-10 md:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-        <div class="reveal-up"><h2 class="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter">The Fleet.</h2></div>
-        <div class="reveal-up text-[9px] text-gray-500 tracking-[0.3em] uppercase mb-1 flex items-center gap-3"><div class="w-6 h-px bg-white/15"></div>Curated Assets</div>
+    <!-- Fleet Section -->
+    <section id="fleet" style="padding-top: var(--space-20);" aria-labelledby="fleet-heading">
+      <div class="container lyt-flex-between md-flex-row" style="flex-direction: column; align-items: flex-start; gap: var(--space-4); margin-bottom: var(--space-16);">
+        <div class="reveal-up"><h2 id="fleet-heading" style="font-size: clamp(1.875rem, 6vw, 3.75rem); font-weight: 700; letter-spacing: -0.05em; text-shadow: 0 4px 20px rgba(255,255,255,0.1);">The Fleet.</h2></div>
+        <div class="reveal-up txt-gray-400 lyt-flex-center" style="font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: var(--space-1); gap: var(--space-3);" aria-hidden="true"><div style="width: 1.5rem; height: 1px; background: var(--accent); box-shadow: 0 0 5px var(--accent);"></div>Curated Assets</div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 border-t border-white/[0.06]" id="fleet-grid">
-        <article class="fleet-card group border-b md:border-b-0 md:border-r border-white/[0.04]" tabindex="0">
-          <div class="fleet-number">01</div>
-          <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Mercedes S-Class luxury sedan" loading="lazy" />
+      <div class="lyt-grid-fleet" id="fleet-grid">
+        <article class="fleet-card group" style="border-right: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" tabindex="0">
+          <div class="fleet-number" aria-hidden="true">01</div>
+          <img src="https://www.dropbox.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm&st=i53xby7e&raw=1" class="fleet-img" alt="Mercedes S-Class luxury executive sedan" loading="lazy" />
           <div class="fleet-overlay">
-            <div class="fleet-line"></div>
-            <h3 class="fleet-title text-xl md:text-2xl font-bold display-font mb-1">S-Class</h3>
-            <p class="fleet-sub text-[9px] tracking-[0.25em] text-gray-300 uppercase">Executive Sedan · 3 Guests</p>
+            <div class="fleet-line" aria-hidden="true"></div>
+            <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">S-Class</h3>
+            <p class="fleet-sub" style="font-size: 9px; letter-spacing: 0.25em; color: color-mix(in oklch, var(--white) 90%, transparent); text-transform: uppercase;">Executive Sedan · 3 Guests</p>
           </div>
         </article>
-        <article class="fleet-card group border-b md:border-b-0 md:border-r border-white/[0.04]" tabindex="0">
-          <div class="fleet-number">02</div>
-          <img src="https://images.unsplash.com/photo-1619330642960-9ba17d8f4354?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Cadillac Escalade ESV" loading="lazy" />
+        <article class="fleet-card group" style="border-right: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" tabindex="0">
+          <div class="fleet-number" aria-hidden="true">02</div>
+          <img src="https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1" class="fleet-img" alt="Cadillac Escalade ESV luxury SUV" loading="lazy" />
           <div class="fleet-overlay">
-            <div class="fleet-line"></div>
-            <h3 class="fleet-title text-xl md:text-2xl font-bold display-font mb-1">Escalade ESV</h3>
-            <p class="fleet-sub text-[9px] tracking-[0.25em] text-gray-300 uppercase">Command Utility · 6 Guests</p>
+            <div class="fleet-line" aria-hidden="true"></div>
+            <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">Escalade ESV</h3>
+            <p class="fleet-sub" style="font-size: 9px; letter-spacing: 0.25em; color: color-mix(in oklch, var(--white) 90%, transparent); text-transform: uppercase;">Command Utility · 6 Guests</p>
           </div>
         </article>
         <article class="fleet-card group" tabindex="0">
-          <div class="fleet-number">03</div>
-          <img src="https://images.unsplash.com/photo-1620050860533-319a27814b7e?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Mercedes Sprinter luxury van" loading="lazy" />
+          <div class="fleet-number" aria-hidden="true">03</div>
+          <img src="https://www.dropbox.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835&st=k0f19aly&raw=1" class="fleet-img" alt="Mercedes Sprinter luxury passenger van" loading="lazy" />
           <div class="fleet-overlay">
-            <div class="fleet-line"></div>
-            <h3 class="fleet-title text-xl md:text-2xl font-bold display-font mb-1">Jet Sprinter</h3>
-            <p class="fleet-sub text-[9px] tracking-[0.25em] text-gray-300 uppercase">Mobile Boardroom · 12 Guests</p>
+            <div class="fleet-line" aria-hidden="true"></div>
+            <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">Jet Sprinter</h3>
+            <p class="fleet-sub" style="font-size: 9px; letter-spacing: 0.25em; color: color-mix(in oklch, var(--white) 90%, transparent); text-transform: uppercase;">Mobile Boardroom · 12 Guests</p>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="py-28 md:py-40 px-6">
-      <div class="container mx-auto max-w-4xl">
-        <div class="text-center reveal-up">
-          <div class="text-[8px] tracking-[0.5em] text-gray-600 uppercase mb-10 md:mb-14 flex items-center justify-center gap-3">
-            <div class="w-5 h-px bg-white/10"></div>
+    <!-- Quote Section -->
+    <section class="lyt-section-padding-lg" style="padding-left: var(--space-6); padding-right: var(--space-6);" aria-label="Brand Philosophy">
+      <div class="container" style="max-width: 56rem;">
+        <div class="txt-center reveal-up">
+          <div class="txt-gray-600 lyt-flex-center" style="font-size: 8px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: var(--space-14); gap: var(--space-3);" aria-hidden="true">
+            <div style="width: 1.25rem; height: 1px; background: color-mix(in oklch, var(--white) 20%, transparent); box-shadow: 0 0 4px rgba(255,255,255,0.2);"></div>
             Service Standard
-            <div class="w-5 h-px bg-white/10"></div>
+            <div style="width: 1.25rem; height: 1px; background: color-mix(in oklch, var(--white) 20%, transparent); box-shadow: 0 0 4px rgba(255,255,255,0.2);"></div>
           </div>
         </div>
         <div class="relative reveal-up">
-          <div class="quote-mark">"</div>
-          <blockquote class="text-xl md:text-3xl lg:text-[2.2rem] font-light leading-[1.6] md:leading-[1.55] text-gray-300 text-balance pl-2 md:pl-0">Built for clients who care about timing, discretion, and a clean handoff from pickup to arrival.</blockquote>
+          <div class="quote-mark" aria-hidden="true" style="color: color-mix(in oklch, var(--white) 15%, transparent); text-shadow: 0 0 20px rgba(255,255,255,0.05);">"</div>
+          <blockquote class="txt-white txt-balance" style="font-size: clamp(1.25rem, 4vw, 2.2rem); font-weight: 300; line-height: 1.55; text-shadow: 0 2px 15px rgba(255,255,255,0.15);">Built for clients who care about timing, discretion, and a clean handoff from pickup to arrival.</blockquote>
         </div>
-        <div class="mt-10 md:mt-14 reveal-up flex items-center gap-4">
-          <div class="w-8 h-px bg-white/10"></div>
+        <div class="reveal-up" style="margin-top: var(--space-14); display: flex; align-items: center; gap: var(--space-4);">
+          <div style="width: 2rem; height: 1px; background: var(--accent); box-shadow: 0 0 8px var(--accent);" aria-hidden="true"></div>
           <div>
-            <div class="text-[10px] tracking-[0.2em] text-gray-400 uppercase font-medium">Scottsdale & Phoenix</div>
-            <div class="text-[9px] tracking-[0.15em] text-gray-600 uppercase mt-0.5">Airport · Corporate · Events · Hourly</div>
+            <div class="txt-white" style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;">Scottsdale & Phoenix</div>
+            <div class="txt-gray-500" style="font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; margin-top: var(--space-1);">Airport · Corporate · Events · Hourly</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="py-28 md:py-40 px-6 border-t border-white/[0.04]">
-      <div class="container mx-auto text-center">
-        <div class="reveal-up"><h2 class="text-[8px] md:text-[9px] tracking-[0.5em] text-gray-600 mb-8 md:mb-12 uppercase">Secure Your Asset</h2></div>
+    <!-- Contact CTA Section -->
+    <section id="contact" class="lyt-section-padding-lg" style="padding-left: var(--space-6); padding-right: var(--space-6); border-top: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" aria-label="Booking and Contact">
+      <div class="container txt-center">
+        <div class="reveal-up"><h2 class="txt-gray-500" style="font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase; margin-bottom: var(--space-12);">Secure Your Asset</h2></div>
         <div class="reveal-up">
-          <div class="magnetic-wrap inline-block">
-            <button type="button" class="text-4xl md:text-6xl lg:text-8xl font-bold text-white/90 hover:text-white transition-all duration-700 display-font tracking-tighter relative group bg-transparent border-none outline-none js-open-booking" aria-label="Open booking form">
+          <div class="magnetic-wrap">
+            <button type="button" class="display-font js-open-booking" style="font-size: clamp(2.25rem, 8vw, 6rem); font-weight: 700; color: var(--white); letter-spacing: -0.05em; background: transparent; border: none; outline: none; position: relative; cursor: pointer; transition: text-shadow 0.5s, transform 0.5s; text-shadow: 0 4px 30px rgba(255,255,255,0.2);" aria-haspopup="dialog" onmouseover="this.style.textShadow='0 8px 40px rgba(255,255,255,0.4)'; this.style.transform='scale(1.02)'" onmouseout="this.style.textShadow='0 4px 30px rgba(255,255,255,0.2)'; this.style.transform='scale(1)'">
               Book Now.
-              <div class="absolute -bottom-3 md:-bottom-4 left-0 w-full h-px bg-white/25 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" style="transition-timing-function:var(--ease-out-expo)"></div>
             </button>
           </div>
         </div>
-        <div class="mt-16 md:mt-20 flex flex-col md:flex-row justify-center gap-6 md:gap-16 lg:gap-24 reveal-up">
-          <a href="mailto:concierge@jacksonlimo.com" class="text-[10px] tracking-[0.15em] text-gray-400 uppercase hover:text-white transition-colors no-underline">concierge@jacksonlimo.com</a>
-          <a href="tel:+18885551234" class="text-[10px] tracking-[0.15em] text-gray-400 uppercase hover:text-white transition-colors no-underline">+1 (888) 555-1234</a>
-          <span class="text-[10px] tracking-[0.15em] text-gray-600 uppercase">HQ: Scottsdale, AZ</span>
+        <div class="reveal-up lyt-flex-center" style="flex-wrap: wrap; margin-top: var(--space-20); gap: var(--space-6);">
+          <a href="mailto:concierge@jacksonlimo.com" class="txt-white" style="font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 10px rgba(255,255,255,0.5)'" onmouseout="this.style.textShadow='none'">concierge@jacksonlimo.com</a>
+          <a href="tel:+18885551234" class="txt-white" style="font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 10px rgba(255,255,255,0.5)'" onmouseout="this.style.textShadow='none'">+1 (888) 555-1234</a>
+          <span class="txt-gray-400" style="font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;">HQ: Scottsdale, AZ</span>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-white/[0.04] bg-[#050404]">
-    <div class="container mx-auto px-6">
-      <div class="py-16 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
-        <div class="md:col-span-5 lg:col-span-6">
-          <div class="text-lg font-bold tracking-tighter display-font mb-3">Jackson</div>
-          <p class="text-[13px] text-gray-500 max-w-sm leading-relaxed font-light">Premium chauffeured transportation for airport, executive, and event travel across Scottsdale and Phoenix.</p>
+  <footer style="border-top: 1px solid color-mix(in oklch, var(--white) 8%, transparent); background: var(--black);" aria-label="Site Footer">
+    <div class="container">
+      <div class="lyt-grid-footer" style="padding: var(--space-20) 0;">
+        <div class="footer-col-main">
+          <div class="display-font" style="font-size: 1.125rem; font-weight: 700; letter-spacing: -0.05em; margin-bottom: var(--space-3); text-shadow: 0 0 10px rgba(255,255,255,0.1);">Jackson</div>
+          <p class="txt-gray-400" style="font-size: 13px; max-width: 24rem; line-height: 1.625; font-weight: 300;">Premium chauffeured transportation for airport, executive, and event travel across Scottsdale and Phoenix.</p>
         </div>
-        <div class="md:col-span-3">
-          <div class="text-[8px] tracking-[0.25em] text-gray-600 uppercase mb-5 font-medium">Navigate</div>
-          <div class="space-y-2.5">
-            <a href="#fleet" class="block text-[13px] text-gray-500 hover:text-white no-underline">Fleet</a>
-            <a href="#experience" class="block text-[13px] text-gray-500 hover:text-white no-underline">Experience</a>
-            <a href="#contact" class="block text-[13px] text-gray-500 hover:text-white no-underline">Contact</a>
-            <button type="button" class="block text-[13px] text-gray-500 hover:text-white no-underline bg-transparent border-none js-open-booking">Reserve</button>
+        <div class="footer-col-nav">
+          <div class="txt-gray-500" style="font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: var(--space-5); font-weight: 500;">Navigate</div>
+          <div class="lyt-flex-col" style="gap: var(--space-3);">
+            <a href="#fleet" class="txt-white" style="font-size: 13px; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 8px rgba(255,255,255,0.4)'" onmouseout="this.style.textShadow='none'">Fleet</a>
+            <a href="#experience" class="txt-white" style="font-size: 13px; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 8px rgba(255,255,255,0.4)'" onmouseout="this.style.textShadow='none'">Experience</a>
+            <a href="#contact" class="txt-white" style="font-size: 13px; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 8px rgba(255,255,255,0.4)'" onmouseout="this.style.textShadow='none'">Contact</a>
+            <button type="button" class="txt-white js-open-booking" style="font-size: 13px; background: transparent; border: none; text-align: left; padding: 0; cursor: pointer; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 8px rgba(255,255,255,0.4)'" onmouseout="this.style.textShadow='none'">Reserve</button>
           </div>
         </div>
-        <div class="md:col-span-4 lg:col-span-3">
-          <div class="text-[8px] tracking-[0.25em] text-gray-600 uppercase mb-5 font-medium">Connect</div>
-          <div class="space-y-2.5">
-            <a href="tel:+18885551234" class="block text-[13px] text-gray-500 hover:text-white no-underline">+1 (888) 555-1234</a>
-            <a href="mailto:concierge@jacksonlimo.com" class="block text-[13px] text-gray-500 hover:text-white no-underline">concierge@jacksonlimo.com</a>
-            <div class="text-[13px] text-gray-600">Scottsdale, AZ</div>
+        <div class="footer-col-conn">
+          <div class="txt-gray-500" style="font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: var(--space-5); font-weight: 500;">Connect</div>
+          <div class="lyt-flex-col" style="gap: var(--space-3);">
+            <a href="tel:+18885551234" class="txt-white" style="font-size: 13px; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 8px rgba(255,255,255,0.4)'" onmouseout="this.style.textShadow='none'">+1 (888) 555-1234</a>
+            <a href="mailto:concierge@jacksonlimo.com" class="txt-white" style="font-size: 13px; transition: text-shadow 0.3s;" onmouseover="this.style.textShadow='0 0 8px rgba(255,255,255,0.4)'" onmouseout="this.style.textShadow='none'">concierge@jacksonlimo.com</a>
+            <div class="txt-gray-500" style="font-size: 13px;">Scottsdale, AZ</div>
           </div>
         </div>
       </div>
-      <div class="py-7 border-t border-white/[0.04] flex flex-col md:flex-row justify-between items-center gap-3 text-[8px] tracking-[0.2em] text-gray-600 uppercase">
-        <div>© 2026 Jackson Limousine Service. All rights reserved.</div>
-        <div class="flex gap-6 items-center">
+      <div class="lyt-flex-between" style="padding: var(--space-6) 0; border-top: 1px solid color-mix(in oklch, var(--white) 8%, transparent); font-size: 8px; letter-spacing: 0.2em; color: var(--txt-gray-500); text-transform: uppercase; flex-wrap: wrap; gap: var(--space-3);">
+        <div>&copy; 2026 Jackson Limousine Service. All rights reserved.</div>
+        <div style="display: flex; gap: var(--space-6); align-items: center;">
           <span>Private Requests</span>
           <span>Direct Dispatch</span>
           <span>Scottsdale, Arizona</span>
@@ -814,6 +677,7 @@
     </div>
   </footer>
 
+  <!-- Central Execution Script (WebGL + GSAP Batching + Handlers) -->
   <script>
     (() => {
       'use strict';
@@ -821,6 +685,7 @@
       const hasGSAP = typeof window.gsap !== 'undefined';
       if (hasGSAP && window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
       }
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -829,8 +694,6 @@
       const loadFill = document.getElementById('load-fill');
       const loadCount = document.getElementById('load-count');
       const bgCanvas = document.getElementById('bg-canvas');
-      const cursor = document.getElementById('cursor');
-      const follower = document.getElementById('follower');
       const isFinePointer = window.matchMedia('(pointer: fine)').matches;
       const nav = document.getElementById('main-nav');
       const progressBar = document.getElementById('scroll-progress');
@@ -848,7 +711,6 @@
       const newRequestBtn = document.getElementById('new-request');
       const fullNameInput = document.getElementById('full-name');
       const dateInput = document.getElementById('date');
-      const siteContent = document.getElementById('site-content');
       const drawerFocusableSelector = 'button, [href], input, textarea, select';
 
       let mouseX = window.innerWidth / 2;
@@ -861,10 +723,149 @@
 
       const imageSources = [
         'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1600',
-        'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000',
-        'https://images.unsplash.com/photo-1619330642960-9ba17d8f4354?auto=format&fit=crop&q=80&w=1000',
-        'https://images.unsplash.com/photo-1620050860533-319a27814b7e?auto=format&fit=crop&q=80&w=1000'
+        'https://www.dropbox.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm&st=i53xby7e&raw=1',
+        'https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1',
+        'https://www.dropbox.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835&st=k0f19aly&raw=1'
       ];
+
+      /* WebGL Fragment Shader 
+         CORRECTION: The Shader-Native Void. Liquid Obsidian physics.
+      */
+      function initWebGLBackground() {
+        if (prefersReducedMotion) return;
+        
+        const glCanvas = document.createElement('canvas');
+        glCanvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;';
+        bgCanvas.appendChild(glCanvas);
+        
+        const gl = glCanvas.getContext('webgl', { alpha: false, antialias: false, depth: false });
+        if (!gl) return;
+
+        const vsSource = `attribute vec2 p; void main() { gl_Position = vec4(p, 0.0, 1.0); }`;
+        const fsSource = `
+          precision mediump float;
+          uniform vec2 u_res;
+          uniform vec2 u_mouse;
+          uniform float u_time;
+          
+          void main() {
+            vec2 uv = gl_FragCoord.xy / u_res;
+            vec2 aspect = vec2(u_res.x / u_res.y, 1.0);
+            
+            // Mouse distance with aspect correction for perfect circles
+            vec2 delta = (uv - u_mouse) * aspect;
+            float dist = length(delta);
+            
+            // Gravitational displacement (The Void)
+            vec2 dir = normalize(delta);
+            float force = exp(-dist * 8.0) * 0.08; // The physical push radius
+            vec2 warp = uv + dir * force;
+            
+            // Slow, liquid distortion applied to the warped space
+            warp.x += sin(warp.y * 3.0 + u_time * 0.2) * 0.03;
+            warp.y += cos(warp.x * 3.0 + u_time * 0.3) * 0.03;
+            
+            // Recalculate distance for accurate lighting on the distorted liquid
+            float warpDist = length((warp - u_mouse) * aspect);
+            
+            // Colors: Absolute Obsidian to Warm Titanium
+            vec3 voidColor = vec3(0.01, 0.01, 0.01);
+            vec3 rimColor = vec3(0.08, 0.075, 0.07);
+            
+            // The physical rim lighting (creates a 3D bevel effect)
+            float rim = smoothstep(0.0, 0.2, warpDist) * (1.0 - smoothstep(0.1, 0.8, warpDist));
+            
+            // Create a pure black void at the absolute center where the mouse is
+            float centerHole = smoothstep(0.02, 0.1, warpDist);
+            
+            vec3 finalColor = mix(voidColor, rimColor, rim) * centerHole;
+            
+            // Sub-pixel dither to maintain pure gradients in deep blacks
+            float noise = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
+            finalColor += (noise - 0.5) * 0.008;
+            
+            gl_FragColor = vec4(finalColor, 1.0);
+          }
+        `;
+
+        const vs = gl.createShader(gl.VERTEX_SHADER);
+        gl.shaderSource(vs, vsSource); gl.compileShader(vs);
+        
+        const fs = gl.createShader(gl.FRAGMENT_SHADER);
+        gl.shaderSource(fs, fsSource); gl.compileShader(fs);
+
+        const prog = gl.createProgram();
+        gl.attachShader(prog, vs); gl.attachShader(prog, fs); 
+        gl.linkProgram(prog); gl.useProgram(prog);
+
+        const buf = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+        
+        const pos = gl.getAttribLocation(prog, 'p');
+        gl.enableVertexAttribArray(pos);
+        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+
+        const uRes = gl.getUniformLocation(prog, 'u_res');
+        const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+        const uTime = gl.getUniformLocation(prog, 'u_time');
+
+        let resizeTimeout;
+        function resize() {
+          // VECTOR 2: GPU Pixel Ratio Throttling (The "Overheat" Fix)
+          // Hard-cap the resolution scale to 0.75 on mobile to bypass retina bloat 
+          // and reduce fragment shader processing load by ~43%.
+          const dpr = window.innerWidth < 768 ? 0.75 : 1.0;
+          
+          glCanvas.width = window.innerWidth * dpr;
+          glCanvas.height = window.innerHeight * dpr;
+          gl.viewport(0, 0, glCanvas.width, glCanvas.height);
+          gl.uniform2f(uRes, glCanvas.width, glCanvas.height);
+        }
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(resize, 150);
+        }, { passive: true });
+        resize();
+
+        let startTime = Date.now();
+        let isHeroVisible = true;
+        let isRendering = false;
+
+        // VECTOR 4: rAF Throttling via IntersectionObserver
+        const heroObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isHeroVisible = entry.isIntersecting;
+            if (isHeroVisible && !isRendering) {
+              render(); // Restart the loop when visible
+            }
+          });
+        }, { rootMargin: "100px" }); // 100px buffer to start rendering just before it enters viewport
+        
+        const heroNode = document.getElementById('hero');
+        if (heroNode) heroObserver.observe(heroNode);
+
+        function render() {
+          // Break the recursive loop and suspend GPU calculation if not visible
+          if (!isHeroVisible) {
+            isRendering = false;
+            return; 
+          }
+          isRendering = true;
+
+          if (!ticking) {
+             const mx = mouseX / window.innerWidth;
+             const my = 1.0 - (mouseY / window.innerHeight);
+             const time = (Date.now() - startTime) * 0.001;
+             
+             gl.uniform2f(uMouse, mx, my);
+             gl.uniform1f(uTime, time);
+             gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+          }
+          requestAnimationFrame(render);
+        }
+        render(); // Initial trigger
+      }
 
       function setMinDate() {
         const now = new Date();
@@ -882,11 +883,16 @@
             ease: 'power2.inOut',
             onComplete: () => {
               preloader.style.display = 'none';
+              // CRITICAL FIX: The DOM height changes here. ScrollTrigger must recount before animating the Hero.
+              ScrollTrigger.refresh();
+              cacheDOMMetrics();
               startAnimations();
             }
           });
         } else {
           preloader.style.display = 'none';
+          if(hasGSAP) ScrollTrigger.refresh();
+          cacheDOMMetrics();
           startAnimations();
         }
       }
@@ -906,9 +912,7 @@
           const pct = Math.round((loaded / total) * 100);
           loadFill.style.width = pct + '%';
           loadCount.textContent = String(pct);
-          if (loaded >= total) {
-            setTimeout(revealSite, 160);
-          }
+          if (loaded >= total) setTimeout(revealSite, 160);
         };
 
         imageSources.forEach((src) => {
@@ -940,49 +944,52 @@
         }
 
         const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-        tl.to('#hero-meta', { opacity: 1, y: 0, duration: 1, delay: 0.1 })
-          .to('.hero-accent-line', { width: 60, duration: 1.2, ease: 'power3.inOut' }, '-=0.6')
-          .to('.hero-diamond', { scale: 1, duration: 0.8, ease: 'back.out(2)' }, '-=0.8')
-          .from('.h-line', { y: '120%', skewY: 4, opacity: 0, stagger: 0.12, duration: 1.4 }, '-=1.0')
-          .to('#hero-cta', { opacity: 1, duration: 1, ease: 'power2.out' }, '-=0.6');
+        
+        tl.to('#hero-meta', { opacity: 1, y: 0, duration: 1.5, delay: 0.2 })
+          .from('.h-line', { 
+            y: '110%', 
+            opacity: 0, 
+            stagger: 0.15, 
+            duration: 1.8,
+            ease: 'expo.out'
+          }, 0.3)
+          .to('#hero-cta', { opacity: 1, duration: 1.5, ease: 'power2.out' }, 1.2);
 
-        document.querySelectorAll('.h-line').forEach((line, i) => {
-          const speeds = [-120, -80, -50];
-          gsap.to(line, {
-            scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 0.8 },
-            y: speeds[i] || -60,
+        document.querySelectorAll('.h-wrap').forEach((wrap, i) => {
+          const speeds = [-120, -60];
+          gsap.to(wrap, {
+            scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1.2 },
+            y: speeds[i] || -80,
             opacity: 0,
             ease: 'none'
           });
-        });
-
-        gsap.to(['#hero-accent-top', '#hero-accent-bottom', '#hero-meta', '#hero-cta'], {
-          scrollTrigger: { trigger: '#hero', start: 'top top', end: '60% top', scrub: 0.5 },
-          opacity: 0,
-          ease: 'none'
         });
       }
 
       function initScrollAnimations() {
         if (!hasGSAP || prefersReducedMotion) return;
 
-        gsap.utils.toArray('.reveal-up').forEach((el) => {
-          gsap.to(el, {
-            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
-            y: 0,
-            opacity: 1,
-            duration: 1.2,
-            ease: 'power3.out'
-          });
+        ScrollTrigger.batch('.reveal-up', {
+          start: 'top 88%',
+          once: true,
+          onEnter: elements => {
+            gsap.to(elements, {
+              y: 0,
+              opacity: 1,
+              duration: 1.2,
+              stagger: 0.15,
+              ease: 'power3.out',
+              overwrite: "auto"
+            });
+          }
         });
 
-        gsap.utils.toArray('.structural-line').forEach((line) => {
-          gsap.to(line, {
-            scrollTrigger: { trigger: line, start: 'top 85%' },
-            scaleX: 1,
-            duration: 1.6,
-            ease: 'power3.inOut'
-          });
+        gsap.to('.structural-line', {
+          scrollTrigger: { trigger: '#experience', start: 'top 85%' },
+          scaleX: 1,
+          duration: 1.6,
+          ease: 'power3.inOut',
+          stagger: 0.2
         });
 
         const curtain = document.getElementById('img-curtain');
@@ -1031,16 +1038,26 @@
       }
 
       function startAnimations() {
+        initWebGLBackground();
         animateHero();
         initScrollAnimations();
-        if (isFinePointer && hasGSAP) {
-          gsap.to([cursor, follower], { opacity: 1, duration: 0.5, delay: 0.2 });
-        }
+        // GSAP cursor animations REMOVED
       }
 
+      let cachedScrollHeight = 0;
+      let metricTimeout;
+
+      function cacheDOMMetrics() {
+        cachedScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+
+      window.addEventListener('resize', () => {
+        clearTimeout(metricTimeout);
+        metricTimeout = setTimeout(cacheDOMMetrics, 150);
+      }, { passive: true });
+
       function updateProgress() {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = scrollHeight > 0 ? (window.pageYOffset / scrollHeight) * 100 : 0;
+        const scrolled = cachedScrollHeight > 0 ? (window.pageYOffset / cachedScrollHeight) * 100 : 0;
         progressBar.style.width = scrolled + '%';
       }
 
@@ -1083,7 +1100,7 @@
         mobileMenu.setAttribute('aria-hidden', 'true');
         menuToggle.classList.remove('active');
         menuToggle.setAttribute('aria-expanded', 'false');
-        menuToggle.setAttribute('aria-label', 'Open menu');
+        menuToggle.setAttribute('aria-label', 'Open mobile menu');
         if (!drawerOpen) setPageLocked(false);
         if (restoreFocus && lastFocused) lastFocused.focus();
       }
@@ -1157,11 +1174,7 @@
         formMessage.classList.add('hidden');
         if (messageClass === 'ok' && hasGSAP && !prefersReducedMotion) {
           gsap.from(successState.children, {
-            y: 20,
-            opacity: 0,
-            stagger: 0.08,
-            duration: 0.5,
-            ease: 'power2.out'
+            y: 20, opacity: 0, stagger: 0.08, duration: 0.5, ease: 'power2.out'
           });
         }
       }
@@ -1183,13 +1196,9 @@
         formMessage.classList.add('hidden');
 
         const serviceValid = validateService();
-        if (!serviceValid) {
-          serviceError.focus?.();
-        }
+        if (!serviceValid) serviceError.focus?.();
 
-        if (!bookingForm.reportValidity() || !serviceValid) {
-          return;
-        }
+        if (!bookingForm.reportValidity() || !serviceValid) return;
 
         submitBtn.disabled = true;
         submitBtn.style.opacity = '0.65';
@@ -1211,9 +1220,7 @@
         const body = encodeURIComponent(bodyText);
         const mailto = 'mailto:concierge@jacksonlimo.com?subject=' + subject + '&body=' + body;
 
-        try {
-          await copyText(bodyText);
-        } catch (_) {}
+        try { await copyText(bodyText); } catch (_) {}
 
         window.location.href = mailto;
         showSuccess('ok');
@@ -1225,7 +1232,10 @@
         bookingForm.style.display = '';
         bookingForm.reset();
         serviceInput.value = '';
-        document.querySelectorAll('.service-btn').forEach((btn) => btn.classList.remove('selected'));
+        document.querySelectorAll('.service-btn').forEach((btn) => {
+          btn.classList.remove('selected');
+          btn.setAttribute('aria-checked', 'false');
+        });
         serviceError.classList.add('hidden');
         formMessage.classList.add('hidden');
         submitBtn.disabled = false;
@@ -1234,45 +1244,12 @@
         fullNameInput.focus();
       }
 
-      function wireCursor() {
-        if (!isFinePointer || !hasGSAP || prefersReducedMotion) return;
+      function wireMouseTracking() {
+        if (!isFinePointer || prefersReducedMotion) return;
         document.addEventListener('mousemove', (e) => {
           mouseX = e.clientX;
           mouseY = e.clientY;
-          const mx = (mouseX / window.innerWidth) * 100;
-          const my = (mouseY / window.innerHeight) * 100;
-          bgCanvas.style.setProperty('--mx', mx + '%');
-          bgCanvas.style.setProperty('--my', my + '%');
-          gsap.to(cursor, { x: mouseX - 4, y: mouseY - 4, duration: 0.08, ease: 'power2.out' });
-          gsap.to(follower, { x: mouseX - 22, y: mouseY - 22, duration: 0.45, ease: 'power3.out' });
-        });
-
-        document.querySelectorAll('button, a, input, textarea, select, [tabindex="0"]').forEach((el) => {
-          el.addEventListener('mouseenter', () => {
-            gsap.to(follower, {
-              width: 60,
-              height: 60,
-              borderColor: 'rgba(255,255,255,0.7)',
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              x: mouseX - 30,
-              y: mouseY - 30,
-              duration: 0.35,
-              ease: 'power2.out'
-            });
-          });
-          el.addEventListener('mouseleave', () => {
-            gsap.to(follower, {
-              width: 44,
-              height: 44,
-              borderColor: 'rgba(255,255,255,0.12)',
-              backgroundColor: 'transparent',
-              x: mouseX - 22,
-              y: mouseY - 22,
-              duration: 0.35,
-              ease: 'power2.out'
-            });
-          });
-        });
+        }, { passive: true });
       }
 
       function wireMagnetic() {
@@ -1293,10 +1270,10 @@
 
       function wireNav() {
         window.addEventListener('scroll', () => {
-          updateProgress();
           if (!ticking) {
             requestAnimationFrame(() => {
               const currentScroll = window.pageYOffset;
+              updateProgress();
               if (!menuOpen && !drawerOpen) {
                 if (currentScroll > lastScroll && currentScroll > 120) nav.style.transform = 'translateY(-101%)';
                 else nav.style.transform = 'translateY(0)';
@@ -1351,8 +1328,12 @@
         bookingForm.addEventListener('submit', handleSubmit);
         document.querySelectorAll('.service-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
-            document.querySelectorAll('.service-btn').forEach((b) => b.classList.remove('selected'));
+            document.querySelectorAll('.service-btn').forEach((b) => {
+              b.classList.remove('selected');
+              b.setAttribute('aria-checked', 'false');
+            });
             btn.classList.add('selected');
+            btn.setAttribute('aria-checked', 'true');
             serviceInput.value = btn.dataset.service;
             validateService();
           });
@@ -1363,14 +1344,15 @@
         document.querySelectorAll('img').forEach((img) => {
           img.addEventListener('error', () => {
             img.style.opacity = '0';
-            img.parentElement?.classList.add('bg-[#0d0d0d]');
+            if(img.parentElement) img.parentElement.style.background = '#0d0d0d';
           });
         });
       }
 
       setMinDate();
+      cacheDOMMetrics();
       updateProgress();
-      wireCursor();
+      wireMouseTracking(); // Replaces wireCursor
       wireMagnetic();
       wireNav();
       wireSmoothScroll();
