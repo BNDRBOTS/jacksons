@@ -184,6 +184,7 @@
     /* Z-Axis Depth / Background Canvas */
     #bg-canvas { position: fixed; inset: 0; z-index: -1; will-change: background; background: var(--black); }
     .noise { position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"); opacity: 0.6; pointer-events: none; z-index: 9990; mix-blend-mode: overlay; }
+    @media (max-width: 768px) { .noise { display: none !important; } }
     #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--white); z-index: 9500; transform-origin: left; }
 
     /* Magnetic Cursor */
@@ -261,7 +262,7 @@
 
     /* Hero Section - Refined Cinematic Luxury */
     .lyt-hero { position: relative; height: 100dvh; display: flex; align-items: center; justify-content: flex-start; padding: 0 8vw; overflow: hidden; }
-    .hero-title { font-size: clamp(2.5rem, 6.5vw, 6.5rem); line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; z-index: 10; position: relative; mix-blend-mode: difference; }
+    .hero-title { font-size: clamp(2.5rem, 6.5vw, 6.5rem); line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; z-index: 10; position: relative; mix-blend-mode: difference; transform: translateZ(0); }
     @media (max-width: 480px) { .hero-title { font-size: clamp(2rem, 10vw, 3rem); line-height: 1.05; } }
 
     /* Fleet Component */
@@ -557,7 +558,7 @@
       <div class="lyt-grid-fleet" id="fleet-grid">
         <article class="fleet-card group" style="border-right: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" tabindex="0">
           <div class="fleet-number" aria-hidden="true">01</div>
-          <img src="https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Mercedes S-Class luxury executive sedan" loading="lazy" />
+          <img src="https://www.dropbox.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm&st=i53xby7e&raw=1" class="fleet-img" alt="Mercedes S-Class luxury executive sedan" loading="lazy" />
           <div class="fleet-overlay">
             <div class="fleet-line" aria-hidden="true"></div>
             <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">S-Class</h3>
@@ -566,7 +567,7 @@
         </article>
         <article class="fleet-card group" style="border-right: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" tabindex="0">
           <div class="fleet-number" aria-hidden="true">02</div>
-          <img src="https://images.unsplash.com/photo-1619330642960-9ba17d8f4354?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Cadillac Escalade ESV luxury SUV" loading="lazy" />
+          <img src="https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1" class="fleet-img" alt="Cadillac Escalade ESV luxury SUV" loading="lazy" />
           <div class="fleet-overlay">
             <div class="fleet-line" aria-hidden="true"></div>
             <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">Escalade ESV</h3>
@@ -575,7 +576,7 @@
         </article>
         <article class="fleet-card group" tabindex="0">
           <div class="fleet-number" aria-hidden="true">03</div>
-          <img src="https://images.unsplash.com/photo-1620050860533-319a27814b7e?auto=format&fit=crop&q=80&w=1000" class="fleet-img" alt="Mercedes Sprinter luxury passenger van" loading="lazy" />
+          <img src="https://www.dropbox.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835&st=k0f19aly&raw=1" class="fleet-img" alt="Mercedes Sprinter luxury passenger van" loading="lazy" />
           <div class="fleet-overlay">
             <div class="fleet-line" aria-hidden="true"></div>
             <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">Jet Sprinter</h3>
@@ -673,6 +674,7 @@
       const hasGSAP = typeof window.gsap !== 'undefined';
       if (hasGSAP && window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
       }
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -712,9 +714,9 @@
 
       const imageSources = [
         'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1600',
-        'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=1000',
-        'https://images.unsplash.com/photo-1619330642960-9ba17d8f4354?auto=format&fit=crop&q=80&w=1000',
-        'https://images.unsplash.com/photo-1620050860533-319a27814b7e?auto=format&fit=crop&q=80&w=1000'
+        'https://www.dropbox.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm&st=i53xby7e&raw=1',
+        'https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1',
+        'https://www.dropbox.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835&st=k0f19aly&raw=1'
       ];
 
       /* WebGL Fragment Shader 
@@ -785,17 +787,49 @@
         const uMouse = gl.getUniformLocation(prog, 'u_mouse');
         const uTime = gl.getUniformLocation(prog, 'u_time');
 
+        let resizeTimeout;
         function resize() {
-          glCanvas.width = window.innerWidth;
-          glCanvas.height = window.innerHeight;
+          // VECTOR 2: GPU Pixel Ratio Throttling (The "Overheat" Fix)
+          // Hard-cap the resolution scale to 0.75 on mobile to bypass retina bloat 
+          // and reduce fragment shader processing load by ~43%.
+          const dpr = window.innerWidth < 768 ? 0.75 : 1.0;
+          
+          glCanvas.width = window.innerWidth * dpr;
+          glCanvas.height = window.innerHeight * dpr;
           gl.viewport(0, 0, glCanvas.width, glCanvas.height);
           gl.uniform2f(uRes, glCanvas.width, glCanvas.height);
         }
-        window.addEventListener('resize', resize, { passive: true });
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(resize, 150);
+        }, { passive: true });
         resize();
 
         let startTime = Date.now();
+        let isHeroVisible = true;
+        let isRendering = false;
+
+        // VECTOR 4: rAF Throttling via IntersectionObserver
+        const heroObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            isHeroVisible = entry.isIntersecting;
+            if (isHeroVisible && !isRendering) {
+              render(); // Restart the loop when visible
+            }
+          });
+        }, { rootMargin: "100px" }); // 100px buffer to start rendering just before it enters viewport
+        
+        const heroNode = document.getElementById('hero');
+        if (heroNode) heroObserver.observe(heroNode);
+
         function render() {
+          // Break the recursive loop and suspend GPU calculation if not visible
+          if (!isHeroVisible) {
+            isRendering = false;
+            return; 
+          }
+          isRendering = true;
+
           if (!ticking) {
              const mx = mouseX / window.innerWidth;
              const my = 1.0 - (mouseY / window.innerHeight);
@@ -807,7 +841,7 @@
           }
           requestAnimationFrame(render);
         }
-        requestAnimationFrame(render);
+        render(); // Initial trigger
       }
 
       function setMinDate() {
@@ -828,12 +862,14 @@
               preloader.style.display = 'none';
               // CRITICAL FIX: The DOM height changes here. ScrollTrigger must recount before animating the Hero.
               ScrollTrigger.refresh();
+              cacheDOMMetrics();
               startAnimations();
             }
           });
         } else {
           preloader.style.display = 'none';
           if(hasGSAP) ScrollTrigger.refresh();
+          cacheDOMMetrics();
           startAnimations();
         }
       }
@@ -987,9 +1023,20 @@
         }
       }
 
+      let cachedScrollHeight = 0;
+      let metricTimeout;
+
+      function cacheDOMMetrics() {
+        cachedScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+
+      window.addEventListener('resize', () => {
+        clearTimeout(metricTimeout);
+        metricTimeout = setTimeout(cacheDOMMetrics, 150);
+      }, { passive: true });
+
       function updateProgress() {
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = scrollHeight > 0 ? (window.pageYOffset / scrollHeight) * 100 : 0;
+        const scrolled = cachedScrollHeight > 0 ? (window.pageYOffset / cachedScrollHeight) * 100 : 0;
         progressBar.style.width = scrolled + '%';
       }
 
@@ -1213,10 +1260,10 @@
 
       function wireNav() {
         window.addEventListener('scroll', () => {
-          updateProgress();
           if (!ticking) {
             requestAnimationFrame(() => {
               const currentScroll = window.pageYOffset;
+              updateProgress();
               if (!menuOpen && !drawerOpen) {
                 if (currentScroll > lastScroll && currentScroll > 120) nav.style.transform = 'translateY(-101%)';
                 else nav.style.transform = 'translateY(0)';
@@ -1293,6 +1340,7 @@
       }
 
       setMinDate();
+      cacheDOMMetrics();
       updateProgress();
       wireCursor();
       wireMagnetic();
