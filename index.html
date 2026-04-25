@@ -91,7 +91,16 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    @media (pointer: fine) { * { cursor: none !important; } }
+    /* Hardware-Native Signature Cursors (Replaces cursor: none) */
+    @media (pointer: fine) { 
+      * { 
+        cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 2L14 10L22 12L14 14L12 22L10 14L2 12L10 10L12 2Z' fill='%23ffffff' filter='drop-shadow(0 2px 4px rgba(0,0,0,0.6))'/%3E%3C/svg%3E") 12 12, auto !important; 
+      }
+      a, a *, button, button *, input, textarea, [tabindex="0"], .js-open-booking {
+        cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='3' fill='%23ffffff' filter='drop-shadow(0 2px 4px rgba(0,0,0,0.6))'/%3E%3Ccircle cx='12' cy='12' r='10' stroke='%23ffffff' stroke-width='1.5' opacity='0.5'/%3E%3C/svg%3E") 12 12, pointer !important;
+      }
+    }
+
     h1, h2, h3, .nav-item, .display-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
     section[id] { scroll-margin-top: 86px; }
     a, button, input, textarea { -webkit-tap-highlight-color: transparent; text-decoration: none; }
@@ -187,12 +196,8 @@
     @media (max-width: 768px) { .noise { display: none !important; } }
     #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--white); z-index: 9500; transform-origin: left; }
 
-    /* Magnetic Cursor */
-    .custom-cursor, .cursor-follower { position: fixed; pointer-events: none; z-index: 9998; opacity: 0; will-change: transform; mix-blend-mode: difference; }
-    .custom-cursor { width: 8px; height: 8px; background: var(--white); border-radius: 999px; }
-    .cursor-follower { width: 44px; height: 44px; border: 1px solid color-mix(in oklch, var(--white) 30%, transparent); border-radius: 999px; z-index: 9997; transition: width 0.4s var(--ease-lux), height 0.4s var(--ease-lux), border-color 0.4s ease, background-color 0.4s ease, opacity 0.4s ease; }
-    @media (pointer: coarse), (max-width: 768px) { .custom-cursor, .cursor-follower { display: none !important; } }
-
+    /* Magnetic Cursor CSS REMOVED - Memory Reclaimed */
+    
     /* Navigation High-Gloss Glassmorphism */
     .glass-nav { 
       position: fixed; top: 0; left: 0; width: 100%; z-index: 900; padding: var(--space-4) var(--space-6); 
@@ -331,8 +336,7 @@
   <!-- Z-Axis Architecture Elements -->
   <div id="bg-canvas" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
-  <div class="custom-cursor" id="cursor" aria-hidden="true"></div>
-  <div class="cursor-follower" id="follower" aria-hidden="true"></div>
+  <!-- DOM Cursors REMOVED -->
   <div id="scroll-progress" aria-hidden="true" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 
   <!-- Primary Navigation -->
@@ -468,14 +472,21 @@
     
     <!-- Hero Section -->
     <section id="hero" class="lyt-hero" aria-label="Introduction">
+      <!-- High-End Blended Background Layer -->
+      <div style="position: absolute; inset: 0; z-index: 1;">
+        <img src="https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: contrast(1.1) grayscale(0.2); mix-blend-mode: luminosity;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, color-mix(in oklch, var(--void) 40%, transparent) 0%, var(--void) 100%);"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(to right, var(--void) 0%, transparent 100%);"></div>
+      </div>
+
       <div class="container" style="z-index: 10; position: relative; max-width: 1800px; padding: 0;">
-        <div style="overflow: hidden; margin-bottom: var(--space-6);">
+        <div style="margin-bottom: var(--space-6);">
           <span id="hero-meta" class="txt-gray-500" style="display: inline-block; font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; font-weight: 500; opacity: 0; transform: translateY(1rem);">Premium Chauffeured Service — Phoenix & Scottsdale</span>
         </div>
 
         <h1 class="hero-title" style="user-select: none;">
-          <div class="h-wrap" style="overflow: hidden; padding-bottom: 1vh;"><span class="h-line" style="display: block; color: var(--white);">Absolute</span></div>
-          <div class="h-wrap" style="overflow: hidden; padding-bottom: 1vh; margin-left: 6vw;"><span class="h-line" style="display: block; color: var(--accent);">Discretion.</span></div>
+          <div class="h-wrap" style="padding-bottom: 1vh;"><span class="h-line" style="display: block; color: var(--white);">Absolute</span></div>
+          <div class="h-wrap" style="padding-bottom: 1vh; margin-left: 6vw;"><span class="h-line" style="display: block; color: var(--accent);">Discretion.</span></div>
         </h1>
 
         <div style="margin-top: var(--space-12); opacity: 0; margin-left: 6vw;" id="hero-cta">
@@ -683,8 +694,6 @@
       const loadFill = document.getElementById('load-fill');
       const loadCount = document.getElementById('load-count');
       const bgCanvas = document.getElementById('bg-canvas');
-      const cursor = document.getElementById('cursor');
-      const follower = document.getElementById('follower');
       const isFinePointer = window.matchMedia('(pointer: fine)').matches;
       const nav = document.getElementById('main-nav');
       const progressBar = document.getElementById('scroll-progress');
@@ -720,7 +729,7 @@
       ];
 
       /* WebGL Fragment Shader 
-         CORRECTION: Liquid Obsidian. No grid. No neon. Just heavy, slow, cinematic light refraction.
+         CORRECTION: The Shader-Native Void. Liquid Obsidian physics.
       */
       function initWebGLBackground() {
         if (prefersReducedMotion) return;
@@ -741,21 +750,35 @@
           
           void main() {
             vec2 uv = gl_FragCoord.xy / u_res;
+            vec2 aspect = vec2(u_res.x / u_res.y, 1.0);
             
-            // Slow, liquid distortion
-            vec2 warp = uv;
-            warp.x += sin(uv.y * 3.0 + u_time * 0.2) * 0.05;
-            warp.y += cos(uv.x * 3.0 + u_time * 0.3) * 0.05;
+            // Mouse distance with aspect correction for perfect circles
+            vec2 delta = (uv - u_mouse) * aspect;
+            float dist = length(delta);
             
-            // Heavy light bloom tracking the mouse but distorted by the liquid
-            float dist = distance(warp, u_mouse);
+            // Gravitational displacement (The Void)
+            vec2 dir = normalize(delta);
+            float force = exp(-dist * 8.0) * 0.08; // The physical push radius
+            vec2 warp = uv + dir * force;
             
-            // Monochromatic Obsidian to Warm Titanium Light Leak
-            vec3 voidColor = vec3(0.02, 0.02, 0.02); // Absolute deep black
-            vec3 glowColor = vec3(0.08, 0.075, 0.07); // Very subtle titanium reflection
+            // Slow, liquid distortion applied to the warped space
+            warp.x += sin(warp.y * 3.0 + u_time * 0.2) * 0.03;
+            warp.y += cos(warp.x * 3.0 + u_time * 0.3) * 0.03;
             
-            // Exponential falloff for cinematic heavy shadow
-            vec3 finalColor = mix(glowColor, voidColor, pow(smoothstep(0.0, 0.8, dist), 0.8));
+            // Recalculate distance for accurate lighting on the distorted liquid
+            float warpDist = length((warp - u_mouse) * aspect);
+            
+            // Colors: Absolute Obsidian to Warm Titanium
+            vec3 voidColor = vec3(0.01, 0.01, 0.01);
+            vec3 rimColor = vec3(0.08, 0.075, 0.07);
+            
+            // The physical rim lighting (creates a 3D bevel effect)
+            float rim = smoothstep(0.0, 0.2, warpDist) * (1.0 - smoothstep(0.1, 0.8, warpDist));
+            
+            // Create a pure black void at the absolute center where the mouse is
+            float centerHole = smoothstep(0.02, 0.1, warpDist);
+            
+            vec3 finalColor = mix(voidColor, rimColor, rim) * centerHole;
             
             // Sub-pixel dither to maintain pure gradients in deep blacks
             float noise = fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);
@@ -1018,9 +1041,7 @@
         initWebGLBackground();
         animateHero();
         initScrollAnimations();
-        if (isFinePointer && hasGSAP) {
-          gsap.to([cursor, follower], { opacity: 1, duration: 0.5, delay: 0.2 });
-        }
+        // GSAP cursor animations REMOVED
       }
 
       let cachedScrollHeight = 0;
@@ -1223,23 +1244,12 @@
         fullNameInput.focus();
       }
 
-      function wireCursor() {
-        if (!isFinePointer || !hasGSAP || prefersReducedMotion) return;
+      function wireMouseTracking() {
+        if (!isFinePointer || prefersReducedMotion) return;
         document.addEventListener('mousemove', (e) => {
           mouseX = e.clientX;
           mouseY = e.clientY;
-          gsap.to(cursor, { x: mouseX - 4, y: mouseY - 4, duration: 0.08, ease: 'power2.out' });
-          gsap.to(follower, { x: mouseX - 22, y: mouseY - 22, duration: 0.45, ease: 'power3.out' });
-        });
-
-        document.querySelectorAll('button, a, input, textarea, select, [tabindex="0"]').forEach((el) => {
-          el.addEventListener('mouseenter', () => {
-            gsap.to(follower, { width: 60, height: 60, borderColor: 'rgba(255,255,255,0.7)', backgroundColor: 'rgba(255,255,255,0.04)', x: mouseX - 30, y: mouseY - 30, duration: 0.35, ease: 'power2.out' });
-          });
-          el.addEventListener('mouseleave', () => {
-            gsap.to(follower, { width: 44, height: 44, borderColor: 'rgba(255,255,255,0.12)', backgroundColor: 'transparent', x: mouseX - 22, y: mouseY - 22, duration: 0.35, ease: 'power2.out' });
-          });
-        });
+        }, { passive: true });
       }
 
       function wireMagnetic() {
@@ -1342,7 +1352,7 @@
       setMinDate();
       cacheDOMMetrics();
       updateProgress();
-      wireCursor();
+      wireMouseTracking(); // Replaces wireCursor
       wireMagnetic();
       wireNav();
       wireSmoothScroll();
