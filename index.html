@@ -115,6 +115,7 @@
 
     /* System Layout Grid */
     .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 var(--space-6); }
+    .relative { position: relative; }
     .lyt-flex-between { display: flex; justify-content: space-between; align-items: center; }
     .lyt-flex-center { display: flex; justify-content: center; align-items: center; }
     .lyt-flex-col { display: flex; flex-direction: column; }
@@ -195,8 +196,6 @@
     .noise { position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"); opacity: 0.6; pointer-events: none; z-index: 9990; mix-blend-mode: overlay; }
     @media (max-width: 768px) { .noise { display: none !important; } }
     #scroll-progress { position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: var(--white); z-index: 9500; transform-origin: left; }
-
-    /* Magnetic Cursor CSS REMOVED - Memory Reclaimed */
     
     /* Navigation High-Gloss Glassmorphism */
     .glass-nav { 
@@ -306,7 +305,7 @@
 
     /* Initial Animation States */
     .reveal-up { opacity: 0; transform: translateY(50px); }
-    .quote-mark { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(4rem, 8vw, 8rem); line-height: 1; color: color-mix(in oklch, var(--white) 8%, transparent); position: absolute; top: -0.2em; left: -0.05em; user-select: none; pointer-events: none; }
+    .quote-mark { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1; color: color-mix(in oklch, var(--white) 15%, transparent); text-shadow: 0 0 20px rgba(255,255,255,0.05); position: absolute; top: -0.4em; left: -0.3em; user-select: none; pointer-events: none; }
 
     /* Accessibility Fallback - Reduces Motion Override */
     @media (prefers-reduced-motion: reduce) {
@@ -608,7 +607,7 @@
           </div>
         </div>
         <div class="relative reveal-up">
-          <div class="quote-mark" aria-hidden="true" style="color: color-mix(in oklch, var(--white) 15%, transparent); text-shadow: 0 0 20px rgba(255,255,255,0.05);">"</div>
+          <div class="quote-mark" aria-hidden="true">"</div>
           <blockquote class="txt-white txt-balance" style="font-size: clamp(1.25rem, 4vw, 2.2rem); font-weight: 300; line-height: 1.55; text-shadow: 0 2px 15px rgba(255,255,255,0.15);">Built for clients who care about timing, discretion, and a clean handoff from pickup to arrival.</blockquote>
         </div>
         <div class="reveal-up" style="margin-top: var(--space-14); display: flex; align-items: center; gap: var(--space-4);">
