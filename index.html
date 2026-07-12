@@ -191,7 +191,7 @@
     #preloader { position: fixed; inset: 0; z-index: 99999; background: var(--black); display: flex; align-items: center; justify-content: center; flex-direction: column; }
     #preloader .load-brand { font-family: 'Syncopate', sans-serif; font-size: 11px; letter-spacing: 0.7em; text-transform: uppercase; color: var(--white); margin-bottom: var(--space-8); }
     #preloader .load-track { width: 180px; height: 1px; background: color-mix(in oklch, var(--white) 10%, transparent); position: relative; overflow: hidden; }
-    #preloader .load-fill { position: absolute; inset: 0 auto 0 0; width: 0%; background: var(--white); transition: width 0.28s ease-out; }
+    #preloader .load-fill { position: absolute; inset: 0; width: 100%; background: var(--white); transform: scaleX(0); transform-origin: left center; will-change: transform; }
     #preloader .load-count { font-size: 10px; letter-spacing: 0.3em; color: var(--white); margin-top: var(--space-6); font-variant-numeric: tabular-nums; }
 
     /* Z-Axis Depth / Background Canvas */
@@ -479,7 +479,7 @@
     <section id="hero" class="lyt-hero" aria-label="Introduction">
       <!-- High-End Blended Background Layer -->
       <div style="position: absolute; inset: 0; z-index: 1;">
-        <img src="https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: contrast(1.1) grayscale(0.2); mix-blend-mode: luminosity;">
+        <img src="https://dl.dropboxusercontent.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu" alt="" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.35; filter: contrast(1.1) grayscale(0.2); mix-blend-mode: luminosity;">
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, color-mix(in oklch, var(--void) 40%, transparent) 0%, var(--void) 100%);"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(to right, var(--void) 0%, transparent 100%);"></div>
       </div>
@@ -574,7 +574,7 @@
       <div class="lyt-grid-fleet" id="fleet-grid">
         <article class="fleet-card group" style="border-right: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" tabindex="0">
           <div class="fleet-number" aria-hidden="true">01</div>
-          <img src="https://www.dropbox.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm&st=i53xby7e&raw=1" class="fleet-img" alt="Mercedes S-Class luxury executive sedan" loading="lazy" />
+          <img src="https://dl.dropboxusercontent.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm" class="fleet-img" alt="Mercedes S-Class luxury executive sedan" loading="lazy" />
           <div class="fleet-overlay">
             <div class="fleet-line" aria-hidden="true"></div>
             <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">S-Class</h3>
@@ -583,7 +583,7 @@
         </article>
         <article class="fleet-card group" style="border-right: 1px solid color-mix(in oklch, var(--white) 8%, transparent);" tabindex="0">
           <div class="fleet-number" aria-hidden="true">02</div>
-          <img src="https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1" class="fleet-img" alt="Cadillac Escalade ESV luxury SUV" loading="lazy" />
+          <img src="https://dl.dropboxusercontent.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu" class="fleet-img" alt="Cadillac Escalade ESV luxury SUV" loading="lazy" />
           <div class="fleet-overlay">
             <div class="fleet-line" aria-hidden="true"></div>
             <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">Escalade ESV</h3>
@@ -592,7 +592,7 @@
         </article>
         <article class="fleet-card group" tabindex="0">
           <div class="fleet-number" aria-hidden="true">03</div>
-          <img src="https://www.dropbox.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835&st=k0f19aly&raw=1" class="fleet-img" alt="Mercedes Sprinter luxury passenger van" loading="lazy" />
+          <img src="https://dl.dropboxusercontent.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835" class="fleet-img" alt="Mercedes Sprinter luxury passenger van" loading="lazy" />
           <div class="fleet-overlay">
             <div class="fleet-line" aria-hidden="true"></div>
             <h3 class="fleet-title display-font" style="font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 700; margin-bottom: var(--space-1);">Jet Sprinter</h3>
@@ -725,19 +725,23 @@
       let menuOpen = false;
       let drawerOpen = false;
       let lastFocused = null;
+      let siteRevealed = false;
+      let animationsStarted = false;
+      let webGLInitialized = false;
 
       const imageSources = [
         'https://r2-uploader-production.up.railway.app/files/44154803-c2f1-4c80-8e65-428c5b10216b.png',
-        'https://www.dropbox.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm&st=i53xby7e&raw=1',
-        'https://www.dropbox.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu&st=zljrikqp&raw=1',
-        'https://www.dropbox.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835&st=k0f19aly&raw=1'
+        'https://dl.dropboxusercontent.com/scl/fi/7o4anpizns8b4b1ntjd6m/upscale_image-6.jpeg?rlkey=lywdig9nwsqxoft6892m7v2xm',
+        'https://dl.dropboxusercontent.com/scl/fi/fmozdx3kpvov3awc7kn2p/upscale_image-5.jpeg?rlkey=54auu39fm3v38hk3qxxkhsfeu',
+        'https://dl.dropboxusercontent.com/scl/fi/3jgkbid7axt8vf2y5p17f/upscale_image-7.jpeg?rlkey=1xzcbju4ng62br1k20779q835'
       ];
 
       /* WebGL Fragment Shader 
          CORRECTION: The Shader-Native Void. Liquid Obsidian physics.
       */
       function initWebGLBackground() {
-        if (prefersReducedMotion) return;
+        if (prefersReducedMotion || webGLInitialized) return;
+        webGLInitialized = true;
         
         const glCanvas = document.createElement('canvas');
         glCanvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;';
@@ -880,60 +884,106 @@
       }
 
       function revealSite() {
+        if (siteRevealed) return;
+        siteRevealed = true;
         body.classList.remove('preload-locked');
+
+        // Start the hero beneath the fading loader so the handoff is continuous,
+        // rather than exposing one blank frame and then starting every effect at once.
+        startAnimations();
+
+        const completeReveal = () => {
+          preloader.style.display = 'none';
+          cacheDOMMetrics();
+          if (hasGSAP && window.ScrollTrigger) {
+            requestAnimationFrame(() => ScrollTrigger.refresh());
+          }
+        };
+
         if (!prefersReducedMotion && hasGSAP) {
           gsap.to(preloader, {
             opacity: 0,
-            duration: 0.7,
+            duration: 0.8,
             ease: 'power2.inOut',
-            onComplete: () => {
-              preloader.style.display = 'none';
-              // CRITICAL FIX: The DOM height changes here. ScrollTrigger must recount before animating the Hero.
-              ScrollTrigger.refresh();
-              cacheDOMMetrics();
-              startAnimations();
-            }
+            overwrite: true,
+            onComplete: completeReveal
           });
         } else {
-          preloader.style.display = 'none';
-          if(hasGSAP) ScrollTrigger.refresh();
-          cacheDOMMetrics();
-          startAnimations();
+          completeReveal();
         }
       }
 
       function runPreloader() {
         if (prefersReducedMotion) {
-          preloader.style.display = 'none';
-          body.classList.remove('preload-locked');
-          startAnimations();
+          revealSite();
           return;
         }
 
-        let loaded = 0;
-        const total = imageSources.length;
-        const finish = () => {
-          loaded += 1;
-          const pct = Math.round((loaded / total) * 100);
-          loadFill.style.width = pct + '%';
-          loadCount.textContent = String(pct);
-          if (loaded >= total) setTimeout(revealSite, 160);
+        const sources = [...new Set(imageSources)];
+        const total = Math.max(sources.length, 1);
+        const startedAt = performance.now();
+        const minimumDuration = 900;
+        const maximumDuration = 4200;
+        let completed = 0;
+        let displayed = 0;
+        let target = 4;
+        let settled = false;
+        let revealed = false;
+
+        const paint = () => {
+          // Continue moving even while a remote image is waiting so the bar never
+          // freezes and then jumps in large 25-point steps.
+          const elapsed = performance.now() - startedAt;
+          const waitingTarget = Math.min(88, 4 + (elapsed / maximumDuration) * 84);
+          target = Math.max(target, waitingTarget);
+          displayed += Math.max(0.18, (target - displayed) * 0.085);
+          displayed = Math.min(displayed, 100);
+
+          loadFill.style.transform = `scaleX(${displayed / 100})`;
+          loadCount.textContent = String(Math.min(100, Math.round(displayed)));
+
+          if (!revealed) requestAnimationFrame(paint);
         };
 
-        imageSources.forEach((src) => {
+        const finishPreloader = () => {
+          if (settled) return;
+          settled = true;
+          target = 100;
+
+          const finishWhenReady = () => {
+            const elapsed = performance.now() - startedAt;
+            if (displayed < 99.4 || elapsed < minimumDuration) {
+              requestAnimationFrame(finishWhenReady);
+              return;
+            }
+            displayed = 100;
+            loadFill.style.transform = 'scaleX(1)';
+            loadCount.textContent = '100';
+            revealed = true;
+            setTimeout(revealSite, 120);
+          };
+
+          finishWhenReady();
+        };
+
+        const settleOne = () => {
+          completed += 1;
+          target = Math.max(target, 8 + (completed / total) * 84);
+          if (completed >= total) finishPreloader();
+        };
+
+        requestAnimationFrame(paint);
+
+        sources.forEach((src) => {
           const img = new Image();
-          img.onload = finish;
-          img.onerror = finish;
+          img.decoding = 'async';
+          img.onload = settleOne;
+          img.onerror = settleOne;
           img.src = src;
         });
 
-        setTimeout(() => {
-          if (loaded < total) {
-            loadFill.style.width = '100%';
-            loadCount.textContent = '100';
-            revealSite();
-          }
-        }, 3200);
+        // A failed or slow remote host can no longer hold the intro or trigger it twice.
+        setTimeout(finishPreloader, maximumDuration);
       }
 
       function animateHero() {
@@ -1053,7 +1103,8 @@
       }
 
       function startAnimations() {
-        initWebGLBackground();
+        if (animationsStarted) return;
+        animationsStarted = true;
         animateHero();
         initScrollAnimations();
         // GSAP cursor animations REMOVED
@@ -1374,6 +1425,7 @@
       wireMenuAndDrawer();
       wireForm();
       wireImageFallbacks();
+      initWebGLBackground();
       runPreloader();
     })();
   </script>
